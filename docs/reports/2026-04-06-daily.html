@@ -1,0 +1,196 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Builder Daily · 2026-04-06-daily</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:900px;margin:40px auto;padding:0 20px;line-height:1.65;color:#1f2937}h1,h2,h3{line-height:1.25}pre,code{background:#f6f8fa;border-radius:6px}pre{padding:12px;overflow:auto}code{padding:2px 4px}table{border-collapse:collapse;width:100%;margin:16px 0}th,td{border:1px solid #d0d7de;padding:8px;text-align:left}blockquote{border-left:4px solid #d0d7de;padding-left:12px;color:#57606a}a{color:#0969da;text-decoration:none}a:hover{text-decoration:underline}.meta{color:#57606a;font-size:14px;margin-bottom:24px}.nav{margin-bottom:24px;font-size:14px}</style></head><body><div class="nav"><a href="../index.html">← Back to index</a> · <a href="2026-04-06-daily.md">View original markdown</a></div><div class="meta">Published from local dev-digest source.</div><h1>今日情报 2026-04-06（周一）</h1>
+<p><strong>数据来源：</strong> HN（4月5日）· ProductHunt（4月5日）· GitHub Trending（今日快照）· Twitter feed（4月7日快照）</p>
+<hr />
+<h2>今日最大的事：Gemma 4 跑在 iPhone 上了</h2>
+<p>HN 856分，233评论。原帖作者 @janandonly 把完整的 Gemma 4 E2B/E4B 量化版本跑在了 iPhone 上，配合 LiteRT 推理引擎，实现实时语音+视频输入、语音输出的本地 AI。</p>
+<p><strong>这是什么：</strong> 不是完整的 Gemma 4 32B，而是专门为边缘设备优化的 E2B（2-bit）和 E4B（4-bit）量化版本。Google 设计这两个版本就是为了在手机上跑的——这次是第一次有人把它做成完整可用的 demo。</p>
+<p><strong>性能数据（来自 HN 评论区实测）：</strong>
+- iPhone 16 Pro：30 tokens/sec（E2B）
+- Samsung Galaxy S25：29 tokens/sec（E2B）
+- iPhone 14：约 12 tokens/sec（明显变慢）
+- E4B 开启推理后"表现扎实"；E2B"在多个测试中完全不可用"（@shtack）</p>
+<p><strong>各方声音：</strong></p>
+<p>支持/兴奋：
+- "只花了一天时间整合现有技术，特别感谢 Gemma 团队和 LiteRT 推理引擎" —— HN, @karimf（原作者）
+- "iPhone 17 Pro 应该能跑和 M3 Pro 同等级别的实时 AI（音频/视频输入+语音输出）" —— HN, @karimf
+- "移动操作工具调用（手电筒、地图等）的方向对了" —— HN, @PullJosh</p>
+<p>质疑/反对：
+- "幻觉和误导感觉像回到几年前，甚至在'草莓有几个R'这种基础问题上失败" —— HN, @buzzerbetrayed
+- "推理默认是关闭的，不开的话效果很差" —— HN, @1f60c
+- "专用云硬件推理效率更高，本地跑会损耗电池" —— HN, @crazygringo</p>
+<p>补充视角：
+- "手机的限制是电力，不是 RAM——E2B/E4B 正是为这个设计的" —— HN, @zozbot234
+- "AI 未来应该是：本地设备近乎免费，或云端昂贵——两种模式" —— HN, @janandonly（原作者核心判断）</p>
+<p><strong>【判断】</strong> 这件事为什么 856 分——不是因为技术有多惊人，而是因为它是第一个把"Gemma 4 本地跑"做成<strong>完整可演示产品</strong>的。开发者看到了一条路：不依赖 API，不付云费，在手机上跑真实 AI 任务。对做隐私敏感类产品（医疗、法律、私人助手）的人来说，这是一个真实的技术路径信号。限制也是真实的：E2B 在复杂任务上不可靠，E4B 质量更好但更慢，iPhone 14 以下基本没戏。</p>
+<hr />
+<h2>次要热点：OpenAI "失去光环"，投资人在往 Anthropic 跑</h2>
+<p>HN 214分，151评论。</p>
+<p>原文梳理了近几个季度多位投资人从 OpenAI 转向 Anthropic 的趋势，附具体案例。</p>
+<p>HN 评论区核心观点：
+- "他们曾经有最好的技术、最大的用户基础、最强的品牌——然后几个月内就跑到了'懒惰的在位者'位置" —— HN 评论
+- "没人想买 OpenAI 的二级市场股票，几百家机构找不到买家" —— HN 评论
+- "Claude Code 已经成了 AI coding 工具的默认品牌，就像 ChatGPT 曾经是 AI 的代名词" —— HN 评论</p>
+<p><strong>【判断】</strong> 资本叙事和技术叙事在这条帖子里高度重合：Claude Code 的开发者口碑、Anthropic 的 Google+Broadcom 算力绑定，共同构成了投资人换注的理由。但 OpenAI 的 GPT-5 还没放出来，这个判断是基于现在的快照，不是终局。</p>
+<hr />
+<h2>次要热点：LibreOffice 内部治理危机公开化</h2>
+<p>HN 201分，129评论。LibreOffice 背后的 TDF（文档基金会）发布声明，揭示与 Collabora 公司的冲突：Collabora 既是最大贡献者，又在用基金会资金向自己公司购买服务（自我交易），同时开发竞争性商业产品。</p>
+<p><strong>对产品人的意义</strong>：如果你在依赖 LibreOffice 生态做产品，这次治理危机值得关注——项目分裂风险上升。</p>
+<hr />
+<h2>Show HN：Modo——开源的 Cursor/Windsurf 替代品</h2>
+<p>HN 98分。Modo 是一个开源 AI 编程工具，采用"规划→任务→实现"三段式工作流，直接集成在编辑器里。</p>
+<p>HN 反馈分裂：
+- 支持方关注它的规划流程比 Cursor 更透明
+- 质疑方：「需要另一个 VS Code 克隆吗？」（@lnenad）；缺乏视觉演示是普遍投诉</p>
+<p>新发布，暂无深度使用反馈。已写入追踪列表（2周后复查）。</p>
+<hr />
+<h2>ProductHunt 4月5日（周六）榜单深度</h2>
+<h3>Influcio｜531v｜#1</h3>
+<blockquote>
+<p>AI 替你全程管理 KOL 投放——从找人到收数据，自我学习优化</p>
+</blockquote>
+<p><strong>是什么：</strong> 专为品牌方设计的 AI 营销 Agent，把 influencer campaign 的全流程自动化：找 KOL → 谈合作 → 执行 → 收数据 → 下次优化。</p>
+<p><strong>解决什么问题：</strong> 品牌做 KOL 投放的痛点是：每次都要从头找人、手动跟进、结束后数据散落各处无法复用。Influcio 的核心主张是"自学习"——用上次的数据优化下次的投放。</p>
+<p><strong>怎么做的：</strong> AI 做 influencer 发现和匹配，统一平台管理沟通和执行，性能数据自动录入用于下次优化。</p>
+<p><strong>用户反馈：</strong> 暂无文字评论（发布当天），但 PH 社区预设了20个结构化问题（influencer 精准度、平台覆盖、预算优化、系统集成），说明这些是用户最关心的维度。竞品列表显示 50+ 竞争对手，赛道拥挤。</p>
+<p><strong>【判断】</strong> 531票排第一，说明 KOL 自动化需求是真实的。但"自学习"是这类产品说了5年的功能，真正执行效果需要用户实测。核心风险：KOL 关系本质上是人际关系，AI 替代谈判环节的信任度存疑。对一人公司意义不大（预算门槛高），对中小品牌有参考价值。</p>
+<p><strong>追踪</strong>：已写入追踪列表，2026-04-19 复查用户实测反馈。</p>
+<hr />
+<h3>Panorama｜361v｜#2</h3>
+<blockquote>
+<p>AI 自动扫描你们团队在做什么，找出可以自动化的重复流程</p>
+</blockquote>
+<p><strong>是什么：</strong> 企业工作流分析 + 自动化推荐工具。Panorama "观察"团队的实际工作方式，找出重复性模式，然后推荐 AI 工作流来替代。</p>
+<p><strong>解决什么问题：</strong> 很多团队知道自己有重复性工作，但不知道从哪里开始自动化——Panorama 的价值是"帮你发现盲区"，而不是让你自己去定义流程。</p>
+<p><strong>怎么做的：</strong> 接入团队的工作数据（具体接入方式未公开），分析行为模式，生成自动化建议。</p>
+<p><strong>用户反馈：</strong> 0 条正式评论（新发布），57 条评论显示活跃讨论，但内容未能抓取。5位联合创始人背景覆盖 ML + 产品 + 工程，团队配置认真。</p>
+<p><strong>【判断】</strong> 这个产品在赌一件事：企业愿意让 AI "观察"自己的工作流程。隐私和数据权限是最大阻碍——这也是它的评论区活跃但没有明确好评的原因。对独立创业者价值有限（团队太小没有流程可挖），对 10-50 人的成长期团队可能是刚需。</p>
+<p><strong>追踪</strong>：已写入追踪列表，2026-04-19 复查。</p>
+<hr />
+<h3>Tiny Aya｜227v｜#3</h3>
+<blockquote>
+<p>Cohere 出品的本地开源多语言小模型</p>
+</blockquote>
+<p><strong>是什么：</strong> Cohere 发布的开源轻量级多语言模型，专门为"真实世界语言"优化——覆盖非英语语言，包括低资源语言。Apache 2.0，可商用。</p>
+<p><strong>解决什么问题：</strong> 大多数开源模型在英语上表现好，其他语言（尤其是东南亚、非洲语言）质量断崖式下降。Tiny Aya 的核心主张是多语言场景下的本地可用性。</p>
+<p><strong>怎么做的：</strong> 小参数量（"Tiny"），本地可运行，多语言训练数据覆盖面广。</p>
+<p><strong>用户反馈：</strong> 暂无评论，但背靠 Cohere 的商业级多语言模型研究积累，技术可信度高。</p>
+<p><strong>【判断】</strong> 227票相对低，说明多语言场景在 PH 英语用户圈里不是高频需求。但对做出海产品或非英语市场的人来说，这是一个值得收藏的工具。竞争对手是 Meta 的多语言 Llama 变体，但 Tiny Aya 在低资源语言上可能更有针对性。</p>
+<p><strong>追踪</strong>：已写入追踪列表，2026-04-19 复查社区实测。</p>
+<hr />
+<p><strong>其余上榜：</strong></p>
+<table>
+<thead>
+<tr>
+<th>产品</th>
+<th>票数</th>
+<th>一句话</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shotwell</td>
+<td>217v</td>
+<td>iPhone 截图编辑器，主打标注和分享</td>
+</tr>
+<tr>
+<td>Ember</td>
+<td>173v</td>
+<td>拍食物照片自动算营养，AI 饮食教练</td>
+</tr>
+<tr>
+<td>Handle Extension</td>
+<td>146v</td>
+<td>浏览器内直接改 UI，改动同步给 coding agent</td>
+</tr>
+<tr>
+<td>CatBar</td>
+<td>136v</td>
+<td>RevenueCat 收入数据在 Mac 菜单栏实时显示</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>GitHub Trending 今日</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>Star</th>
+<th>今日新增</th>
+<th>一句话</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>google-ai-edge/gallery</td>
+<td>19k</td>
+<td>+897</td>
+<td>Google 端侧 GenAI 演示集合，配合 Gemma 4</td>
+</tr>
+<tr>
+<td>abhigyanpatwari/GitNexus</td>
+<td>25k</td>
+<td>+1195</td>
+<td>浏览器内代码知识图谱，Graph RAG Agent</td>
+</tr>
+<tr>
+<td>tobi/qmd</td>
+<td>20k</td>
+<td>+859</td>
+<td>命令行文档/知识库搜索引擎</td>
+</tr>
+<tr>
+<td>google-ai-edge/LiteRT-LM</td>
+<td>2.7k</td>
+<td>+528</td>
+<td>驱动今天 Gemma 4 on iPhone 的推理引擎</td>
+</tr>
+<tr>
+<td>NVIDIA/personaplex</td>
+<td>8k</td>
+<td>+662</td>
+<td>NVIDIA 的 persona/角色建模框架</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意</strong>：<code>google-ai-edge/gallery</code> 和 <code>LiteRT-LM</code> 同天上榜，和今天 HN 第一的 Gemma 4 on iPhone 是同一件事的不同层——Google 在推端侧 AI 的整个技术栈。</p>
+<hr />
+<h2>硅谷建造者在聊什么</h2>
+<p><em>（Twitter feed 为4月7日快照，本周数据）</em></p>
+<p><strong>Aaron Levie（Box CEO）</strong></p>
+<blockquote>
+<p>"当 agent 帮你干活，工作上移了一个抽象层。现在的工作是：规划、下指令、审核、整合。"
+https://x.com/levie/status/2041347596342460439</p>
+</blockquote>
+<p><strong>Dan Shipper（Every.so）</strong></p>
+<blockquote>
+<p>"认为 AI 让组织不再需要层级，这个想法很蠢。只要 context rot 是个问题，你就需要专业分工。"
+https://x.com/danshipper/status/2041302485315248595</p>
+</blockquote>
+<p><strong>Zara Zhang</strong></p>
+<blockquote>
+<p>"用 AI 做产品，发布前最重要的是想清楚能砍什么，不是能加什么。"
+https://x.com/zarazhangrui/status/2041196551113179296</p>
+</blockquote>
+<p><strong>Nikunj Kothari（Anthropic）</strong></p>
+<blockquote>
+<p>"过去3个月新增 $21B，上个月年化 $11B……Anthropic 这是什么速度"
+https://x.com/nikunj/status/2041291304387444991</p>
+</blockquote>
+<hr />
+<h2>今日共识 / 非共识</h2>
+<p><strong>共识：</strong>
+- Gemma 4 端侧运行是本周最重要的技术信号，端侧 AI 从实验室进入可演示阶段
+- OpenAI 的资本叙事在恶化，Claude Code 是这轮转变的核心驱动因素
+- Google 在端侧 AI 整个技术栈（模型+推理引擎+演示集合）同步推进</p>
+<p><strong>非共识：</strong>
+- 本地模型 vs 云端：性能差距真实存在，但"本地免费+云端付费"的双轨未来是否成立，社区分裂
+- Influcio 的"AI 替代 KOL 关系管理"：需求真实，但 AI 能不能替代人际关系信任，没有答案</p>
+<hr />
+<h2>一句话总结</h2>
+<blockquote>
+<p>今天是 Gemma 4 落地手机的周末——端侧 AI 从"能跑"到"可用"迈出了一步；与此同时 OpenAI 的资本叙事在恶化，Google 在悄悄把端侧 AI 的整个技术栈推向开发者。</p>
+</blockquote>
+<hr />
+<p><em>生成时间：2026-04-08 | 数据：HN（4月5日真实）+ ProductHunt API（4月5日真实）+ GitHub Trending（4月8日快照）+ Twitter（4月7日快照）</em>
+<em>【判断】标签内容为分析推断，非事实陈述</em></p></body></html>

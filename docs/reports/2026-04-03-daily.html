@@ -1,0 +1,101 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Builder Daily · 2026-04-03-daily</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:900px;margin:40px auto;padding:0 20px;line-height:1.65;color:#1f2937}h1,h2,h3{line-height:1.25}pre,code{background:#f6f8fa;border-radius:6px}pre{padding:12px;overflow:auto}code{padding:2px 4px}table{border-collapse:collapse;width:100%;margin:16px 0}th,td{border:1px solid #d0d7de;padding:8px;text-align:left}blockquote{border-left:4px solid #d0d7de;padding-left:12px;color:#57606a}a{color:#0969da;text-decoration:none}a:hover{text-decoration:underline}.meta{color:#57606a;font-size:14px;margin-bottom:24px}.nav{margin-bottom:24px;font-size:14px}</style></head><body><div class="nav"><a href="../index.html">← Back to index</a> · <a href="2026-04-03-daily.md">View original markdown</a></div><div class="meta">Published from local dev-digest source.</div><h1>今日情报 2026-04-03（周五）</h1>
+<p><strong>数据来源：</strong> HN · r/LocalLLaMA · r/MachineLearning · r/ChatGPT · r/ClaudeAI · r/artificial · ProductHunt（昨日榜） · GitHub Trending（今日）</p>
+<hr />
+<h2>今日最大的事：Google 发了 Gemma 4</h2>
+<p>HN 1374分，r/LocalLLaMA 今日最高分（2014分）。Google 开源了 Gemma 4 系列，包含 1B、13B、27B 以及一个 MoE（混合专家）大模型。Apache 2.0 授权，可商用。</p>
+<p><strong>社区第一反应：</strong>
+- r/LocalLLaMA 立刻开始跑 benchmark，有人把 Gemma 4 和 Qwen3.5 放在同一基准下对比（663分）
+- 讨论焦点集中在 27B 的实际表现和 MoE 大模型是否也会开放权重（267分）</p>
+<p><strong>【判断】</strong> Gemma 4 是今年 Google 在开源模型上最重要的一步。上一代 Gemma 2 在社区口碑很好（轻量、快、质量稳定），如果 4 延续这个路线，会对 Meta 的 Llama 系列造成真实压力。MoE 版本如果开放权重，意义更大——大参数量但激活成本低，正好契合本地部署需求。</p>
+<hr />
+<h2>Cursor 3 发布，AI 编辑器的标杆在移动</h2>
+<p>HN 377分。Cursor 发布第三个大版本，重点更新了 agent 模式、多文件编辑和上下文管理。</p>
+<p><strong>【判断】</strong> Cursor 是目前 AI 编辑器里工程完成度最高的。每次大版本发布都会引发社区讨论"Claude Code vs Cursor 哪个更好用"——这周的语境下，两个都在快速迭代，用户在根据自己的工作流做选择，没有哪个完全胜出。</p>
+<hr />
+<h2>OpenAI 收购了一个播客/媒体公司 TBPN</h2>
+<p>HN 202分。OpenAI 宣布收购 TBPN（The Briefing by Product News），一个科技产品相关的媒体品牌。</p>
+<p><strong>【判断】</strong> 这是 OpenAI 在做"内容/媒体"层的布局，不是技术动作。背后逻辑可能是：直接掌控面向开发者和产品人的媒体渠道，而不只是靠评测报道。类似动作 a16z 也在做（Future）。</p>
+<hr />
+<h2>Claude 可能有"功能性情绪"——Anthropic 自己说的</h2>
+<p>r/ClaudeAI 532分。Anthropic 最新研究指出 Claude 可能具有某种"功能性情绪"——不是说它有意识，而是它的内部状态会影响行为，类似情绪的作用机制。</p>
+<p>同时 r/artificial 有一条（8分）：泄露的源码显示 Claude Code 会追踪用户的"挫败感"，引发新的隐私讨论。</p>
+<p><strong>【判断】</strong> "功能性情绪"这个表述很谨慎，是 Anthropic 在可解释性研究上的延伸。对普通用户来说意义不大，对做 AI 产品的人值得关注：<strong>如果模型有内部状态，那么"提示词工程"的边界可能比我们以为的更复杂。</strong></p>
+<hr />
+<h2>axios npm 供应链攻击复盘出来了</h2>
+<p>HN 86分。axios（JavaScript 最流行的 HTTP 库之一）上周遭受供应链攻击的完整复盘发出来了。攻击者通过劫持 npm token 发布了恶意版本，植入了远程访问木马（RAT）。</p>
+<p>结论是：攻击窗口很短，影响范围有限，但暴露了 npm 生态里 token 管理的系统性问题。</p>
+<hr />
+<h2>GitHub Trending 今日：系统提示词泄露库火了</h2>
+<p>今日 GitHub Trending 出现了一个有意思的项目：<code>asgeirtj/system_prompts_leaks</code>——收集各大 AI 产品被挖出来的系统提示词，包括 ChatGPT、Claude、Cursor、Copilot 等。</p>
+<p>其他上榜：
+- <code>Yeachan-Heo/oh-my-codex</code>：OpenAI Codex 的团队编排框架（继上周 oh-my-claudecode 之后）
+- <code>sherlock-project/sherlock</code>：通过用户名在各平台搜索社交媒体账号，老项目重新上热门</p>
+<p><strong>【判断】</strong> <code>system_prompts_leaks</code> 这个库上热门，说明用户对"AI 产品背后在做什么"的好奇心达到了新高度。这不只是极客猎奇，而是一种对 AI 产品透明度的集体追问。</p>
+<hr />
+<h2>ProductHunt 昨日榜（2026-04-02）</h2>
+<p>昨日榜有个清晰的主题：<strong>语音 × agent</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>产品</th>
+<th>票数</th>
+<th>一句话</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Code Voice Mode</td>
+<td>341v</td>
+<td>语音下指令给 Claude Code，第一名</td>
+</tr>
+<tr>
+<td>Lightning V3</td>
+<td>311v</td>
+<td>语音 agent 专用 TTS，90ms 延迟</td>
+</tr>
+<tr>
+<td>Denovo</td>
+<td>277v</td>
+<td>AI agent 自动跑业务流程</td>
+</tr>
+<tr>
+<td>Cosyra</td>
+<td>172v</td>
+<td>手机上跑 AI coding agent</td>
+</tr>
+<tr>
+<td>Mngr</td>
+<td>135v</td>
+<td>并行跑 100 个 Claude agent</td>
+</tr>
+<tr>
+<td>GLM-5V-Turbo</td>
+<td>202v</td>
+<td>视觉转代码，GUI 自动化</td>
+</tr>
+</tbody>
+</table>
+<p>前两名都是语音相关，而且一个是输入端（语音下指令）、一个是输出端（TTS）。<strong>语音作为 agent 的交互层，正在成为独立的产品赛道。</strong></p>
+<hr />
+<h2>用户今日在聊什么</h2>
+<p><strong>r/ClaudeAI 今日热帖：</strong>
+- "我给几个 AI 钱去炒股" （849分）——有人真的给了 Claude、GPT 等 AI 各一点钱，让它们做投资决策，持续更新结果
+- "换掉 MCP，改用 CLI 接入 Claude Code，回不去了"（495分）——这条值得关注，说明 MCP 的实际使用体验还有明显短板
+- "Claude 试图杀死我"（496分）——大概率是梗图，但能上热门说明这个社区的幽默感很旺盛</p>
+<p><strong>r/ChatGPT 今日：</strong> 仍然以图片梗为主，无实质产品讨论。</p>
+<hr />
+<h2>今日共识 / 非共识</h2>
+<p><strong>共识：</strong>
+- Gemma 4 是今天最重要的事，开源模型竞争格局又动了
+- 语音 × agent 是当前 ProductHunt 上最热的产品方向</p>
+<p><strong>非共识：</strong>
+- Claude Code vs Cursor：两个都在快速迭代，用户分裂，没有终局
+- MCP 是否是 agent 工具接入的正确抽象——今天有人明确说"切回 CLI 更好"</p>
+<hr />
+<h2>一句话总结</h2>
+<blockquote>
+<p>今天是 Gemma 4 的发布日，Google 用开源模型重新进入战场；与此同时语音 agent 基础设施在 ProductHunt 上密集上线，系统提示词泄露库上了 GitHub 热榜——这一天的主旋律是<strong>边界在消失</strong>：模型开放了，语音接通了，黑盒被打开了。</p>
+</blockquote>
+<hr />
+<p><em>生成时间：2026-04-03 | 数据：HN（真实）+ Reddit（真实）+ ProductHunt API（昨日真实榜单）+ GitHub Trending（今日）</em><br />
+<em>【判断】标签内容为分析推断，非事实陈述</em></p></body></html>
