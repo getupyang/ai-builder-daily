@@ -1,267 +1,178 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Builder Daily</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:980px;margin:36px auto;padding:0 20px;line-height:1.7;color:#1f2937}a{color:#0969da;text-decoration:none}a:hover{text-decoration:underline}blockquote{border-left:4px solid #d0d7de;padding-left:16px;color:#57606a}table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid #d0d7de;padding:6px 10px}th{background:#f6f8fa}code{background:#f6f8fa;padding:2px 4px;border-radius:4px}.muted{color:#57606a}</style></head><body><h1 id="2026-05-16">今日情报 2026-05-16（周六）</h1>
-<p><strong>数据来源：</strong> HN Algolia（2026-05-16 UTC）· ProductHunt API（2026-05-16）· GitHub Search API（created:2026-05-16，作为历史 Trending 替代）· Active Questions（本地）</p>
+<p><strong>数据来源：</strong> HN Algolia（2026-05-15 UTC，已核验时间戳）· ProductHunt API（2026-05-15）· GitHub API / 当前可复查仓库页 · Active Questions / Notion 批注（2026-05-18 同步）</p>
 <blockquote>
-<p><strong>今日主线：从公开信号看，2026-05-16 的 builder 关注点集中在 Agent workflow / automation。</strong> 这份补档日报优先使用可复查的 HN / ProductHunt / GitHub API 数据；对无法稳定回溯的 GitHub Trending 和 Reddit 热榜不做编造，用 GitHub Search 与阻断说明替代。</p>
+<p><strong>今日主线：agent 产品开始从“能不能替我做事”进入“怎样在我的机器、我的上下文、我的权限边界里长期工作”。</strong> 今天最值得看的不是某个大模型发布，而是几个小信号同时出现：OpenHuman 讲 private personal AI，HasData 把 scraping 明确卖给 AI agents，TrustClaw / Cline SDK / Relay 都在补 agent 的连接、运行时和上下文复用；HN 上 Zerostack 用 Rust 写一个极轻量 coding agent，MCP Hello Page 则在讨论 remote MCP 的最小产品化细节。换句话说，agent 的竞争点正在下沉：不是聊天框，而是本地资源、工具连接、技能/记忆、可审计执行。</p>
 </blockquote>
 <hr />
-<h2 id="zerostack-a-unix-inspired-coding-agent-written-in-pure-rust">今日最大的事：Zerostack – A Unix-inspired coding agent written in pure Rust</h2>
-<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48164287">Zerostack – A Unix-inspired coding agent written in pure Rust</a>（544p / 298c）· https://crates.io/crates/zerostack/1.0.0</p>
-<p><strong>为什么放在第一位：</strong> 这是当天 HN 中和 AI / developer workflow / agent 基础设施最相关、互动强度最高的信号之一。</p>
-<p><strong>【判断】</strong> 如果把它放回我们的观察框架，重点不是标题里的单点新闻，而是它暴露的产品层问题：Agent workflow / automation 正在从“能力展示”进入“可靠使用、权限边界、验证和复用”的阶段。</p>
+<h2 id="zerostack-8mb-rust-coding-agent-agent">今日最大的事：Zerostack — 一个 8MB 内存的 Rust coding agent，把“重 agent”反向打穿</h2>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48164287">Zerostack – A Unix-inspired coding agent written in pure Rust</a>（546p / 298c）</p>
+<h3 id="_1">这件事是什么</h3>
+<p>Zerostack 是一个用纯 Rust 写的 coding agent。HN 讨论里真正抓住大家注意力的不是“又一个 coding agent”，而是它宣称的资源占用：空 session 约 8MB，工作中约 12MB。对比 Claude Code / Cursor / VS Code 插件生态常见的多进程、Electron、索引、长上下文开销，这个数字击中了很多开发者的痛点。</p>
+<p>评论区高赞第一反应很直接：</p>
+<blockquote>
+<p>“RAM footprint: ~8MB on an empty session, ~12MB when working. I like this, Claude Code is using multiple gigabytes, which is really annoying on lowend laptops.”</p>
+<p>（空 session 8MB、工作中 12MB。我喜欢这个，Claude Code 会吃掉好几个 GB，在低配笔记本上很烦。）</p>
+</blockquote>
+<p>另一个评论接着说：</p>
+<blockquote>
+<p>“Just this fact is going to make a lot of people try it out.”</p>
+<p>（光这一点就会让很多人愿意试。）</p>
+</blockquote>
+<h3 id="_2">为什么这条重要</h3>
+<p>过去几周日报一直在跟 Claude Code / Codex / Cursor / skills / memory。它们的显性竞争是“谁写代码更强”，但 Zerostack 暴露了另一个被低估的维度：<strong>AI coding agent 的系统成本</strong>。</p>
+<p>一个 coding agent 要长期作为“虚拟同事”常驻，不能只看模型能力，还要看：</p>
+<ul>
+<li>是否能在普通机器上低成本常驻；</li>
+<li>是否容易被用户理解和调试；</li>
+<li>是否符合 Unix 式组合，而不是吞掉整个开发环境；</li>
+<li>是否在失败时可替换、可回滚、可手动接管。</li>
+</ul>
+<h3 id="_3">【判断】</h3>
+<p>这条对“个人 AI OS / 一人公司虚拟同事”很关键。虚拟同事如果只是一个巨大 IDE 扩展，它更像工作台里的重型机器；但如果 agent 可以像 Unix 工具一样轻量、可组合、可替换，它才可能成为个人工作流里的“后台同事”。</p>
+<p>对 Margin / mem-ai 的启发不是“我们也要用 Rust 写 agent”，而是：<strong>长期陪伴型产品不能让用户感觉自己被一个重系统占领。</strong>越是要常驻、记忆、主动提醒，越要在资源、权限、可见性上克制。</p>
 <hr />
-<h2 id="hn">HN 今日相关信号</h2>
-<table>
-<thead>
-<tr>
-<th>主题</th>
-<th style="text-align: right;">热度</th>
-<th>分类</th>
-<th>链接</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Zerostack – A Unix-inspired coding agent written in pure Rust</td>
-<td style="text-align: right;">544p / 298c</td>
-<td>Agent workflow / automation</td>
-<td><a href="https://news.ycombinator.com/item?id=48164287">HN</a> / <a href="https://crates.io/crates/zerostack/1.0.0">原文</a></td>
-</tr>
-<tr>
-<td>MCP Hello Page</td>
-<td style="text-align: right;">128p / 48c</td>
-<td>Agent workflow / automation</td>
-<td><a href="https://news.ycombinator.com/item?id=48164294">HN</a> / <a href="https://www.hybridlogic.co.uk/blog/2026/05/mcp-hello-page">原文</a></td>
-</tr>
-<tr>
-<td>I tried to make Claude make me money on open-source bounties</td>
-<td style="text-align: right;">37p / 24c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48164229">HN</a> / <a href="https://github.com/ztc00/algora-scout/blob/main/POST.md">原文</a></td>
-</tr>
-<tr>
-<td>My Son's Math Homework Is Essentially Just Pokémon</td>
-<td style="text-align: right;">14p / 5c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48164722">HN</a> / <a href="https://www.theatlantic.com/technology/2026/05/homework-video-games-ed-tech/687198/">原文</a></td>
-</tr>
-<tr>
-<td>My Thoughts on Bun's Rust Rewrite</td>
-<td style="text-align: right;">9p / 4c</td>
-<td>Developer tools</td>
-<td><a href="https://news.ycombinator.com/item?id=48164772">HN</a> / <a href="https://en.liujiacai.net/2026/05/16/bun-rust-port/">原文</a></td>
-</tr>
-<tr>
-<td>I used AI to help market my bagel shop. Then the one-star reviews came in</td>
-<td style="text-align: right;">4p / 5c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48163847">HN</a> / <a href="https://www.businessinsider.com/bagel-shop-owner-removes-ai-social-media-marketing-2026-5">原文</a></td>
-</tr>
-<tr>
-<td>Jane Street Designed Its New Data Center: A Tour with Dwarkesh Patel [video]</td>
-<td style="text-align: right;">10p / 1c</td>
-<td>Creative AI</td>
-<td><a href="https://news.ycombinator.com/item?id=48164282">HN</a> / <a href="https://www.youtube.com/watch?v=8J-GUnfSqeE">原文</a></td>
-</tr>
-<tr>
-<td>Curl maintainer: AI security reports are no longer slop</td>
-<td style="text-align: right;">7p / 1c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48164849">HN</a> / <a href="https://daniel.haxx.se/blog/2026/04/22/high-quality-chaos/">原文</a></td>
-</tr>
-<tr>
-<td>asp-classic-emulator: Run ASP Classic on macOS, Linux and BSD</td>
-<td style="text-align: right;">5p / 2c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48163898">HN</a> / <a href="https://github.com/MarceloDelgadoDev/asp-classic-emulator">原文</a></td>
-</tr>
-<tr>
-<td>OpenAI caught NPM supply chain chaos after employeedevices compromised</td>
-<td style="text-align: right;">8p / 0c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48164196">HN</a> / <a href="https://www.theregister.com/security/2026/05/15/openai-caught-in-tanstack-npm-supply-chain-chaos-after-employee-devices-compromised/5241019">原文</a></td>
-</tr>
-</tbody>
-</table>
-<p><strong>HN 读法：</strong> 表里的热度只代表公开讨论强度，不等于产品机会强度；日报优先把它当成“哪些问题在开发者社区变得可讨论”。</p>
+<h2 id="_4">次要热点</h2>
+<h3 id="1-mcp-hello-pageremote-mcp">1. MCP Hello Page：remote MCP 从协议走向“产品入口”</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48164294">MCP Hello Page</a>（128p / 48c）</p>
+<p>这条看起来小，但很有产品意味。讨论焦点是：remote MCP server 当浏览器直接 GET <code>/mcp</code> 时，是否应该返回一个 human-readable HTML welcome page；而当 Accept header 请求 JSON / event-stream 时，再返回协议内容。</p>
+<p>评论里有人认为这正是 HTTP content negotiation 的正常用法：</p>
+<blockquote>
+<p>“Serving html when asked for it.”</p>
+<p>（请求 HTML 时就返回 HTML。）</p>
+</blockquote>
+<p>为什么值得看：MCP 生态现在很多讨论还停在“server list / tool call / auth”，但真正要普及，必须有一个普通人能理解的入口页：这个 server 是谁做的、能访问什么、怎么授权、如何撤销、示例调用是什么。</p>
+<p><strong>【判断】</strong> MCP 的下一层机会不是再做一个 server，而是做 MCP 的 trust surface：欢迎页、权限说明、调用记录、调试页、失败解释。对个人 AI OS 来说，这也是“用户为什么敢让 agent 连我的工具”的前置条件。</p>
+<h3 id="2-claude-bounty-ai">2. Claude 做开源 bounty 赚钱失败：AI 自动套利进入过度捕捞区</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48164229">I tried to make Claude make me money on open-source bounties</a>（37p / 24c）</p>
+<p>作者尝试让 Claude 找开源 bounty 并提交成果赚钱。评论区最有价值的判断是：bounty 是 AI 自动化最容易“看起来可套利”的场景，因为任务和收入直接绑定；但也正因为如此，它会迅速过度竞争。</p>
+<p>一条评论说：</p>
+<blockquote>
+<p>“Bounties are the most overfished pond when trying to making money with AI because the task to earnings step is atomic.”</p>
+<p>（用 AI 赚钱时，bounty 是最被过度捕捞的池塘，因为任务到收入这一步太原子化了。）</p>
+</blockquote>
+<p><strong>【判断】</strong> 这对“一人公司 + AI 虚拟同事”是冷水：凡是“把 AI 接上一个公开任务池就能自动赚钱”的叙事，都会迅速变成拥挤市场。更可持续的机会不是公开套利，而是私域上下文、私有判断、长期关系和复利工作流。</p>
+<h3 id="3-orthrus-qwen3-token-forward">3. Orthrus-Qwen3：推理吞吐优化继续沿着“小模型多 token / forward”推进</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48154865">Orthrus-Qwen3: up to 7.8× tokens/forward on Qwen3, identical output distribution</a>（240p / 43c）</p>
+<p>这条技术性强，但产品含义简单：本地 / 私有 AI 的成本继续被工程优化往下压。Qwen3 系列上如果能在保持输出分布一致的情况下提高每次 forward 产出的 token 数，意味着低成本 agent pipeline、批量摘要、离线索引会更现实。</p>
+<p><strong>【判断】</strong> 对我们关注的 memory / page cache / 摘要质量来说，这类优化的意义不是“跑分更高”，而是让“后台批处理”更便宜。用户不会为 token/s 付费，但会为“我打开页面时它已经读过、总结过、知道我关心什么”付费。</p>
+<h3 id="4-fisker">4. Fisker 车主自救：硬件产品死后，用户需要“开源遗产层”</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48164891">Fisker went bankrupt and owners built an open source car company from the ashes</a>（169p / 65c）</p>
+<p>Fisker 破产后，车主围绕车辆软件、云服务和可维护性做自救。评论区最尖锐的问题是：如果关键源码/云服务被某个中间方买走并切断车主访问，那用户到底买的是什么？</p>
+<p><strong>【判断】</strong> 这条和 AI 产品也有关：AI app 越依赖云模型、云记忆、云连接器，一旦公司停服，用户的“个人历史”可能跟着消失。长期陪伴型产品如果承诺 50 个终身用户，必须认真设计导出、迁移、本地备份和“公司死后仍可读”的遗产机制。</p>
 <hr />
-<h2 id="producthunt-2026-05-16">ProductHunt 榜单（2026-05-16）</h2>
+<h2 id="producthunt-2026-05-15">ProductHunt 2026-05-15 榜单解读</h2>
 <table>
 <thead>
 <tr>
 <th style="text-align: right;">排名</th>
 <th>产品</th>
 <th style="text-align: right;">票数/评论</th>
-<th>Topics</th>
-<th>Builder 观察</th>
+<th>一句话</th>
+<th>为什么值得看</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: right;">1</td>
-<td><a href="https://www.producthunt.com/products/loova-agents?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Loova Agents</a>：Your AI director for creating cinematic videos with ease</td>
-<td style="text-align: right;">368 / 82</td>
-<td>Marketing, Artificial Intelligence, Video</td>
-<td>Agent workflow / automation；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/openhuman">OpenHuman</a></td>
+<td style="text-align: right;">567 / 68</td>
+<td>open source AI harness built with the human in mind</td>
+<td>私有个人 AI super-intelligence 叙事继续强；GitHub 今日也在 trending，说明“private personal AI”不是单点偶然。</td>
 </tr>
 <tr>
 <td style="text-align: right;">2</td>
-<td><a href="https://www.producthunt.com/products/agent-memory-dev?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Agentmemory</a>：Persistent memory for Claude Code, Codex &amp; coding agents</td>
-<td style="text-align: right;">278 / 32</td>
-<td>Open Source, Developer Tools, Artificial Intelligence, GitHub</td>
-<td>Personal AI / memory；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/hasdata">HasData</a></td>
+<td style="text-align: right;">428 / 111</td>
+<td>Web scraping service for AI agents</td>
+<td>scraping 明确从“数据抓取工具”转成“agent 的感知层”。</td>
 </tr>
 <tr>
 <td style="text-align: right;">3</td>
-<td><a href="https://www.producthunt.com/products/raybeam?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Raybeam</a>：A better way to screen share on macOS</td>
-<td style="text-align: right;">199 / 6</td>
-<td>Productivity, User Experience, Menu Bar Apps</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
-</tr>
-<tr>
-<td style="text-align: right;">4</td>
-<td><a href="https://www.producthunt.com/products/gemini-3-1-flash-lite-2?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Gemini 3.1 Flash-Lite</a>：Lightweight Gemini model for high-volume AI pipelines</td>
-<td style="text-align: right;">163 / 4</td>
-<td>API, Developer Tools, Artificial Intelligence</td>
-<td>Model / infra；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/vela-terminal">PHBench</a></td>
+<td style="text-align: right;">379 / 44</td>
+<td>Predict the next Series A from a ProductHunt launch</td>
+<td>ProductHunt 自己也在被金融化/benchmark 化：launch 不只是曝光，而是可预测资产。</td>
 </tr>
 <tr>
 <td style="text-align: right;">5</td>
-<td><a href="https://www.producthunt.com/products/openai?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">ChatGPT for Personal Finance</a>：Personal finance guidance powered by ChatGPT</td>
-<td style="text-align: right;">152 / 11</td>
-<td>Fintech, Artificial Intelligence, Business</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
-</tr>
-<tr>
-<td style="text-align: right;">6</td>
-<td><a href="https://www.producthunt.com/products/wring?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Wring</a>：Developer tools, one menu click away.</td>
-<td style="text-align: right;">134 / 6</td>
-<td>Productivity, Developer Tools, Menu Bar Apps</td>
-<td>Developer tools；看它是否解决持续工作流，而不是一次性 demo。</td>
-</tr>
-<tr>
-<td style="text-align: right;">7</td>
-<td><a href="https://www.producthunt.com/products/m5stack?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">M5Stack PaperColor</a>：4-inch color E-ink dev board with ESP32 and audio I/O</td>
-<td style="text-align: right;">123 / 6</td>
-<td>Open Source, Hardware, Internet of Things</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/agentic-website-builder-2-0-by-lokuma">Agentic Website Builder 2.0 by Lokuma</a></td>
+<td style="text-align: right;">181 / 48</td>
+<td>design agent harness for websites</td>
+<td>网站生成从一次性页面生成，转向“design agent harness”。</td>
 </tr>
 <tr>
 <td style="text-align: right;">8</td>
-<td><a href="https://www.producthunt.com/products/scholarxiv-3?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">ScholarXIV</a>：Next-gen Research Platform</td>
-<td style="text-align: right;">35 / 8</td>
-<td>Artificial Intelligence, Vercel Day</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/mia-8">mia</a></td>
+<td style="text-align: right;">145 / 28</td>
+<td>Cursor for Product Managers</td>
+<td>“Cursor for X” 继续扩散到 PM；问题是 PM 任务不是单一 artifact，而是判断、沟通、取舍。</td>
 </tr>
 <tr>
 <td style="text-align: right;">9</td>
-<td><a href="https://www.producthunt.com/products/nextish-news?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Nextish News</a>：Make the AI news cycle slightly more ridiculous.</td>
-<td style="text-align: right;">13 / 3</td>
-<td>Funny, News, Tech</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
-</tr>
-<tr>
-<td style="text-align: right;">12</td>
-<td><a href="https://www.producthunt.com/products/mysoft-ai?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">mysoft.ai</a>：The marketplace built for AI tools, not everything</td>
-<td style="text-align: right;">13 / 6</td>
-<td>Artificial Intelligence, E-Commerce, Tech</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
-</tr>
-<tr>
-<td style="text-align: right;">10</td>
-<td><a href="https://www.producthunt.com/products/burn-after?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Burn After</a>：Single-use file links that disappear after opening</td>
-<td style="text-align: right;">12 / 7</td>
-<td>Email, Privacy, Security</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/composio">TrustClaw by Composio</a></td>
+<td style="text-align: right;">139 / 18</td>
+<td>self-hosted AI agent connects 1000+ apps on Vercel</td>
+<td>连接器 + self-hosted + 可信执行，正好补 agent 落地的最大缺口。</td>
 </tr>
 <tr>
 <td style="text-align: right;">11</td>
-<td><a href="https://www.producthunt.com/products/grok-build?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Grok Build</a>：Agentic CLI for coding, building, and workflow automation</td>
-<td style="text-align: right;">11 / 1</td>
-<td>Developer Tools, Artificial Intelligence</td>
-<td>Agent workflow / automation；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/cline-4">Cline SDK</a></td>
+<td style="text-align: right;">113 / 3</td>
+<td>plugin-based open-source coding agent runtime</td>
+<td>coding agent 从产品变 runtime；第三方可以围绕它做定制 agent。</td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td><a href="https://www.producthunt.com/products/relay-15">Relay</a></td>
+<td style="text-align: right;">111 / 15</td>
+<td>Stop repeating yourself to every AI</td>
+<td>直接命中“跨 AI 重复讲背景”的痛点，本质是个人上下文层。</td>
 </tr>
 </tbody>
 </table>
+<h3 id="producthunt">ProductHunt 今日共识</h3>
+<p>今天的 PH 不是“AI 工具很多”这么简单，而是集中在 agent 的四个底层模块：</p>
+<ol>
+<li><strong>感知层</strong>：HasData，把网页抓取卖给 agent；</li>
+<li><strong>执行层</strong>：TrustClaw / Cline SDK，让 agent 能连接 app、跑在可控环境；</li>
+<li><strong>上下文层</strong>：Relay / OpenHuman，解决每个 AI 都要重新认识你的问题；</li>
+<li><strong>角色化工作流</strong>：mia / Agentic Website Builder，把 agent 包进 PM、设计、网站建设等具体职位。</li>
+</ol>
+<p><strong>【判断】</strong> 对 mem-ai 来说，最值得跟的是 Relay / OpenHuman 这一类：它们都在回答“我的上下文如何不被每个 AI 重新问一遍”。但如果只做“保存背景”，会很快同质化；真正的差异点应是：哪些背景是活跃的、哪些已经过期、哪些只在某个任务/关系中有用。</p>
 <hr />
-<h2 id="github-trending-created2026-05-16">GitHub 今日（历史 Trending 替代：created:2026-05-16）</h2>
-<p>GitHub Trending 没有官方历史 API；补档日报使用 GitHub Search API 按创建日期和 stars 做替代，不能等同于当日 Trending。</p>
+<h2 id="github">GitHub / 开源信号</h2>
+<p>GitHub Trending 历史快照无法官方回放，本期不把 Search API 伪装成历史 Trending；只列可复查的相关开源项目。</p>
 <table>
 <thead>
 <tr>
-<th>Repo</th>
-<th style="text-align: right;">Stars</th>
-<th>Lang</th>
-<th>一句话</th>
+<th>项目</th>
+<th>信号</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/deepakness/google-ai-search-optimization">deepakness/google-ai-search-optimization</a></td>
-<td style="text-align: right;">83</td>
-<td></td>
-<td>Unofficial Agent Skill based on Google Search guidance for AI Overviews, AI Mode, and SEO audits.</td>
+<td><a href="https://github.com/tinyhumansai/openhuman">tinyhumansai/openhuman</a></td>
+<td>PH #1 + 当前 GitHub Trending #1</td>
+<td>Rust，本地/私有个人 AI，说明 personal AI 叙事在 PH 和 GitHub 同时共振。</td>
 </tr>
 <tr>
-<td><a href="https://github.com/zimingttkx/QuantumFlow">zimingttkx/QuantumFlow</a></td>
-<td style="text-align: right;">67</td>
-<td>Python</td>
-<td>QuantumFlow - Distributed LLM inference scheduling framework with multi-backend support (vLLM, TGI, SGLang), adaptive scheduling strategies, and cluster management.</td>
+<td><a href="https://www.producthunt.com/products/cline-4">Cline SDK</a></td>
+<td>PH 上榜</td>
+<td>coding agent runtime 化，开发者不满足于用 Cline，而想基于 Cline 组装自己的 agent。</td>
 </tr>
 <tr>
-<td><a href="https://github.com/agent-quality-controls/slopless">agent-quality-controls/slopless</a></td>
-<td style="text-align: right;">64</td>
-<td>HTML</td>
-<td>Deterministic textlint rules and CLI for catching prose slop in Markdown</td>
-</tr>
-<tr>
-<td><a href="https://github.com/AI4MSE/Parallax">AI4MSE/Parallax</a></td>
-<td style="text-align: right;">31</td>
-<td></td>
-<td>Parallax is ALL YOU NEED? 他山之石，可以攻玉：如何让你的AI Agent更加可靠？How to Make Your AI Agent Truly Reliable?</td>
-</tr>
-<tr>
-<td><a href="https://github.com/ForgeAILab/forge">ForgeAILab/forge</a></td>
-<td style="text-align: right;">26</td>
-<td>Rust</td>
-<td>AI coding agent workflow engine for structured task lifecycles.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/johunsang/tauri-dev-screen-cli">johunsang/tauri-dev-screen-cli</a></td>
-<td style="text-align: right;">25</td>
-<td>JavaScript</td>
-<td>CLI to inspect, screenshot, and control live Tauri development screens without running an MCP server.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/DaoyuanLi2816/can-i-finetune-this">DaoyuanLi2816/can-i-finetune-this</a></td>
-<td style="text-align: right;">24</td>
-<td>Python</td>
-<td>Estimate whether a Hugging Face model fits and fine-tunes on your local GPU.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/wailers9/bragi">wailers9/bragi</a></td>
-<td style="text-align: right;">21</td>
-<td>Python</td>
-<td>一个面向架空世界故事创作者的 AI 架空世界与长篇故事引擎。它能从一句设定出发，自动生成层 层嵌套的历史、地理、角色关系与事件网络，并持续写出贴合世界观的剧情。支持 CLI 与可视化界面，可按时间和空间路径扩展世界，让故事像真实宇宙一样不断生长。项目用数字路径管理嵌套的时间、空间、   角色和事件节点，按需生成并补全世界资料，支持本地 Demo、OpenAI/DeepSeek JSON   Agent、CLI 和黑白 Web 可视化界面，用于创建可持续展开的故事世界与剧情会话。</td>
-</tr>
-<tr>
-<td><a href="https://github.com/sam-siavoshian/agent-notch">sam-siavoshian/agent-notch</a></td>
-<td style="text-align: right;">18</td>
-<td>Swift</td>
-<td>Agent Notch — macOS computer-use agent that lives in the notch. Voice in, screen context in, Claude Sonnet drives the mouse.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/nvwalj/ai-memory-reader">nvwalj/ai-memory-reader</a></td>
-<td style="text-align: right;">16</td>
-<td>Swift</td>
-<td>The native macOS &amp; iOS app for browsing AI agent memory files — Claude Code, OpenClaw, Codex, Cursor, Gemini</td>
+<td>TrustClaw / Composio</td>
+<td>PH 上榜</td>
+<td>app connector 不再只是 SaaS integration，而变成 agent 权限与执行边界。</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="reddit">Reddit 今日热议</h2>
-<p>[阻断] Reddit 历史 top/day 在当前环境不可稳定回溯，且直接 JSON/RSS 经常 403；本期不编造 Reddit 条目。</p>
+<p>[阻断] 无法可靠回放 2026-05-15 当天 Reddit top/day；本期不编造历史 Reddit。当前 Reddit 24h 会放在 2026-05-18 的日报里作为实时信号。</p>
 <hr />
-<h2 id="_1">赛道雷达</h2>
+<h2 id="_5">赛道雷达</h2>
 <table>
 <thead>
 <tr>
@@ -273,57 +184,37 @@
 </thead>
 <tbody>
 <tr>
-<td>Agent workflow / automation</td>
-<td>Zerostack – A Unix-inspired coding agent written in pure Rust；MCP Hello Page；Loova Agents；deepakness/google-ai-search-optimization</td>
-<td>把零散能力包装成可重复工作流、验证层或记忆层。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
+<td>个人 AI / 上下文层</td>
+<td>OpenHuman、Relay</td>
+<td>做“跨 AI 的自我上下文”，让用户不用重复讲自己</td>
+<td>如果只是 profile / prompt，同质化极快；需要过期、冲突、场景分层</td>
 </tr>
 <tr>
-<td>Other</td>
-<td>I tried to make Claude make me money on open-source bounties；My Son's Math Homework Is Essentially Just Pokémon；I used AI to help market my bagel shop. Then the one-star reviews came in；Curl maintainer: AI security reports are no longer slop</td>
-<td>观察是否有持续使用场景。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
+<td>Agent 工具连接</td>
+<td>HasData、TrustClaw、Cline SDK、MCP Hello Page</td>
+<td>agent 需要感知网页、连接 app、解释权限</td>
+<td>权限和安全解释做不好，用户不敢授权</td>
 </tr>
 <tr>
-<td>Developer tools</td>
-<td>My Thoughts on Bun's Rust Rewrite；Wring</td>
-<td>把零散能力包装成可重复工作流、验证层或记忆层。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
+<td>轻量 coding agent</td>
+<td>Zerostack</td>
+<td>低资源、Unix-like、可组合 agent 可能形成反主流路线</td>
+<td>如果缺模型/工具生态，容易停留在 hacker toy</td>
 </tr>
 <tr>
-<td>Creative AI</td>
-<td>Jane Street Designed Its New Data Center: A Tour with Dwarkesh Patel [video]</td>
-<td>观察是否有持续使用场景。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
+<td>自动套利 / agent 赚钱</td>
+<td>Claude bounty 实验</td>
+<td>提醒我们别追公开任务池套利</td>
+<td>公开池会被 AI 快速过度捕捞</td>
 </tr>
 <tr>
-<td>Personal AI / memory</td>
-<td>Agentmemory</td>
-<td>把零散能力包装成可重复工作流、验证层或记忆层。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
-</tr>
-<tr>
-<td>Model / infra</td>
-<td>Gemini 3.1 Flash-Lite；zimingttkx/QuantumFlow；DaoyuanLi2816/can-i-finetune-this</td>
-<td>观察是否有持续使用场景。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
+<td>AI PM / 非工程岗位 agent</td>
+<td>mia、Agentic Website Builder</td>
+<td>“Cursor for X” 正从工程扩散到产品/设计</td>
+<td>PM 的核心是判断和组织，不是生成文档</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="_2">不容错过</h2>
-<ol>
-<li><strong><a href="https://news.ycombinator.com/item?id=48164287">Zerostack – A Unix-inspired coding agent written in pure Rust</a></strong><br />
-   来源：HN。关注点：它是否在 agent / developer / personal AI 的日常工作流里产生重复使用，而不只是新奇功能。</li>
-<li><strong><a href="https://www.producthunt.com/products/loova-agents?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Loova Agents — Your AI director for creating cinematic videos with ease</a></strong><br />
-   来源：PH。关注点：它是否在 agent / developer / personal AI 的日常工作流里产生重复使用，而不只是新奇功能。</li>
-<li><strong><a href="https://www.producthunt.com/products/agent-memory-dev?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Agentmemory — Persistent memory for Claude Code, Codex &amp; coding agents</a></strong><br />
-   来源：PH。关注点：它是否在 agent / developer / personal AI 的日常工作流里产生重复使用，而不只是新奇功能。</li>
-<li><strong><a href="https://www.producthunt.com/products/raybeam?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Raybeam — A better way to screen share on macOS</a></strong><br />
-   来源：PH。关注点：它是否在 agent / developer / personal AI 的日常工作流里产生重复使用，而不只是新奇功能。</li>
-<li><strong><a href="https://github.com/deepakness/google-ai-search-optimization">deepakness/google-ai-search-optimization — Unofficial Agent Skill based on Google Search guidance for AI Overviews, AI Mode, and SEO audits.</a></strong><br />
-   来源：GitHub。关注点：它是否在 agent / developer / personal AI 的日常工作流里产生重复使用，而不只是新奇功能。</li>
-</ol>
 <hr />
 <h2 id="active-questions">Active Questions 雷达</h2>
 <table>
@@ -337,45 +228,62 @@
 <tbody>
 <tr>
 <td>Agent PM 怎么评测 agent？</td>
-<td>HN / GitHub 中的 agent、developer workflow、benchmark 信号</td>
-<td>继续把“验证、回滚、可审计”当作 agent 产品的核心评估维度。</td>
+<td>Zerostack、Cline SDK、TrustClaw、MCP Hello Page</td>
+<td>评测不要只看模型输出，还要看资源占用、权限解释、工具连接、失败可见性。</td>
 </tr>
 <tr>
 <td>一人公司 + AI 虚拟同事</td>
-<td>PH / GitHub 中的 automation、memory、coding agent 工具</td>
-<td>单人公司真正需要的是可交付的工作流，不是 persona。</td>
+<td>OpenHuman、Relay、mia</td>
+<td>虚拟同事的基础设施不是 persona，而是上下文、连接器、轻量常驻、权限边界。</td>
 </tr>
 <tr>
-<td>AI 产品 activation/留存</td>
-<td>PH 榜单产品的持续场景</td>
-<td>留存信号来自跨天/跨任务记忆、审批流和自动化结果复用。</td>
+<td>AI 产品 activation / 留存</td>
+<td>Relay、Standboy、OpenHuman</td>
+<td>留存来自“下次不用重来”；能否记住用户/任务状态，比首屏 wow 更重要。</td>
 </tr>
 <tr>
 <td>AI PKM / knowledge management</td>
-<td>memory / notes / knowledge 类产品</td>
-<td>PKM 机会仍在“保存之后如何每天用上”。</td>
+<td>OpenHuman、Relay</td>
+<td>PKM 机会正在和 personal AI 合并；问题从“保存资料”变成“AI 如何知道什么仍然重要”。</td>
 </tr>
 <tr>
 <td>MCP 生态走向</td>
-<td>MCP / tool / browser automation 相关项目</td>
-<td>MCP 价值要落到具体动作和权限边界。</td>
+<td>MCP Hello Page、TrustClaw</td>
+<td>MCP 要从开发者协议走向用户能理解的信任界面。</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_3">今日共识 / 非共识</h2>
+<h2 id="_6">今日共识 / 非共识</h2>
+<p><strong>共识</strong></p>
 <ul>
-<li><strong>共识：</strong> AI 产品从模型能力展示走向 workflow、memory、automation、developer control plane。</li>
-<li><strong>非共识：</strong> 哪些能力应该自动执行，哪些必须保留 human approval；这个边界仍取决于错误成本和回滚能力。</li>
+<li>agent 落地正在补四件基础设施：上下文、连接器、权限、运行时。</li>
+<li>personal AI 的卖点越来越像“我的本地/私有同事”，而不是“更聪明的聊天框”。</li>
+<li>轻量、可组合、可解释正在成为重型 IDE agent 的反向吸引力。</li>
 </ul>
+<p><strong>非共识</strong></p>
+<ul>
+<li>用户到底愿不愿意把个人上下文交给一个 open-source personal AI harness，还没有真实留存证据。</li>
+<li>“Cursor for PM”这类定位是否成立仍存疑：PM 工作的瓶颈常常不是产出速度，而是判断质量和组织协调。</li>
+<li>agent 连接 1000+ apps 是优势还是风险，取决于权限、审计、回滚是否跟上。</li>
+</ul>
+<hr />
+<h2 id="_7">不容错过</h2>
+<ol>
+<li><strong>Zerostack</strong>：看它不是为了换 coding agent，而是为了提醒我们：常驻型 AI 产品必须关心系统占用和可组合性。</li>
+<li><strong>MCP Hello Page</strong>：很小的产品设计点，但指向 MCP 普及的关键：协议之外，需要 human-readable trust surface。</li>
+<li><strong>OpenHuman + Relay</strong>：一个讲 private personal AI，一个讲 stop repeating yourself to every AI，合起来就是个人上下文层的两个方向。</li>
+<li><strong>HasData / TrustClaw / Cline SDK</strong>：agent 真正落地需要感知、连接和运行时，不是单个模型能解决。</li>
+</ol>
+<hr />
 <h2 id="builder-takeaways">Builder Takeaways</h2>
 <ol>
-<li>补档日报只用可复查来源；缺失的 Reddit / 历史 Trending 不补幻想。</li>
-<li>对 builder 更有价值的是跨来源重复出现的问题：agent 验证、个人记忆、自动化控制面、工作流留存。</li>
-<li>任何 AI 产品判断都要追问：用户明天还会不会再次打开？结果能否被检查、修正、复用？</li>
+<li>如果要做长期陪伴型产品，必须把“轻量、可导出、可撤销权限”当成核心体验，而不是工程细节。</li>
+<li>个人 AI 的记忆层不能只是“多存点背景”，要能判断：什么活跃、什么过期、什么只对当前任务相关。</li>
+<li>不要被“AI 自动赚钱”叙事带偏；公开任务池会快速拥挤，真正有价值的是用户私域上下文里的复利工作。</li>
 </ol>
-<h2 id="_4">一句话总结</h2>
-<p>2026-05-16 的可回溯公开信号显示：AI builder 赛道继续从“模型会什么”转向“工作流如何被安全、可控、可复用地执行”。</p>
+<h2 id="_8">一句话总结</h2>
+<p>2026-05-16 的信号说明：agent 赛道正在从“模型代理人”变成“个人计算环境里的可控同事”，下一轮差异化在轻量常驻、上下文复用、工具连接和权限信任层。</p>
 <hr />
-<p>生成时间：2026-05-18 12:16:36 <br />
-数据源：HN Algolia API / ProductHunt GraphQL API / GitHub Search API / 本地 Active Questions。</p></body></html>
+<p>生成时间：2026-05-18<br />
+数据核验：HN 2026-05-15 UTC、ProductHunt 2026-05-15 API 返回、GitHub 当前可复查仓库页、Notion / AQ 本地上下文。</p></body></html>

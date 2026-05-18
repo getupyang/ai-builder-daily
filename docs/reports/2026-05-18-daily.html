@@ -1,196 +1,325 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Builder Daily</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:980px;margin:36px auto;padding:0 20px;line-height:1.7;color:#1f2937}a{color:#0969da;text-decoration:none}a:hover{text-decoration:underline}blockquote{border-left:4px solid #d0d7de;padding-left:16px;color:#57606a}table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid #d0d7de;padding:6px 10px}th{background:#f6f8fa}code{background:#f6f8fa;padding:2px 4px;border-radius:4px}.muted{color:#57606a}</style></head><body><h1 id="2026-05-18">今日情报 2026-05-18（周一）</h1>
-<p><strong>数据来源：</strong> HN Algolia（2026-05-18 UTC）· ProductHunt API（2026-05-17）· GitHub Search API（created:2026-05-18，作为历史 Trending 替代）· Active Questions（本地）</p>
+<p><strong>数据来源：</strong> HN（2026-05-17 UTC + 2026-05-18 当日中午前实时）· ProductHunt API（2026-05-17，5/18 当日 API 尚无完整榜单）· GitHub Trending（2026-05-18 浏览器实时抓取）· Reddit 当前 24h（ClaudeAI / LocalLLaMA / OpenAI / MachineLearning / ObsidianMD / PKMS 等）· Active Questions / Notion 批注（2026-05-18 同步）</p>
 <blockquote>
-<p><strong>今日主线：从公开信号看，2026-05-18 的 builder 关注点集中在 Developer tools。</strong> 这份补档日报优先使用可复查的 HN / ProductHunt / GitHub API 数据；对无法稳定回溯的 GitHub Trending 和 Reddit 热榜不做编造，用 GitHub Search 与阻断说明替代。</p>
+<p><strong>今日主线：AI 的社会信任和产品信任同时进入“反噬期”，但开发者生态没有停，反而在补控制面。</strong> HN 上 “An AI Hate Wave Is Here” 和 “Most Americans don't trust AI” 把公众情绪摆到台面；Reddit 上 Claude Pro vs ChatGPT Plus、AI research slop、免费账号烧掉 OpenAI 成本等帖子说明重度用户也在重新算账；GitHub Trending 则几乎全是 personal AI、agent-native CLI、skills registry、scientific-agent-skills、local AI。今天的核心不是“AI 热度下降”，而是：<strong>用户开始要求 AI 工具有信任、边界、可解释成本和长期控制权。</strong></p>
 </blockquote>
 <hr />
-<h2 id="most-americans-dont-trust-ai-or-the-people-in-charge-of-it-2025">今日最大的事：Most Americans don't trust AI – or the people in charge of it (2025)</h2>
-<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48174808">Most Americans don't trust AI – or the people in charge of it (2025)</a>（46p / 30c）· https://www.theverge.com/ai-artificial-intelligence/644853/pew-gallup-data-americans-dont-trust-ai</p>
-<p><strong>为什么放在第一位：</strong> 这是当天 HN 中和 AI / developer workflow / agent 基础设施最相关、互动强度最高的信号之一。</p>
-<p><strong>【判断】</strong> 如果把它放回我们的观察框架，重点不是标题里的单点新闻，而是它暴露的产品层问题：Developer tools 正在从“能力展示”进入“可靠使用、权限边界、验证和复用”的阶段。</p>
+<h2 id="ai-hate-wave-ai-trust-crisis-ai">今日最大的事：AI hate wave / AI trust crisis — 反 AI 情绪不再只是艺术家或媒体叙事</h2>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48173318">An AI Hate Wave Is Here</a>（77p / 101c，2026-05-17）· <a href="https://news.ycombinator.com/item?id=48174808">Most Americans don't trust AI – or the people in charge of it</a>（61p / 41c，2026-05-18）</p>
+<h3 id="_1">这件事是什么</h3>
+<p>过去一年 AI 圈内部一直在讨论模型能力、agent、workflow、成本。但这两条 HN 帖子把另一个问题拉到前台：<strong>普通人和部分开发者对 AI 的情绪正在从好奇转向不信任甚至厌恶。</strong></p>
+<p>“An AI Hate Wave Is Here” 的评论区不是单边反 AI，而是对变化速度的集体不适。一条评论说：</p>
+<blockquote>
+<p>“AI is in itself compressing the length of time it takes to move through its phases to reach maturity. It’s a lot faster than for example the dotcom phase.”</p>
+<p>（AI 自己压缩了技术从兴奋到成熟所需的阶段，比 dotcom 周期快得多。）</p>
+</blockquote>
+<p>另一条更尖锐：</p>
+<blockquote>
+<p>“The tech industry is just eating itself. Other fields seem nowhere near as impacted.”</p>
+<p>（科技行业正在吞噬自己。其他领域看起来没有这么受影响。）</p>
+</blockquote>
+<p>而 “Most Americans don't trust AI” 里，评论区马上把 AI 和政府、医疗、社保、机场安检、科学等低信任系统类比。核心不是某个调查样本，而是 AI 已经被放进“我不得不用但不信任”的基础设施篮子里。</p>
+<h3 id="_2">为什么今天重要</h3>
+<p>这和过去几天的 developer 信号形成闭环：</p>
+<ul>
+<li>Claude / Codex / Cursor 的问题不只是模型谁强，而是限额、质量波动、黑箱变更；</li>
+<li>GitHub 上 skills / memory / agent registry 爆发，是开发者在给 agent 找可控结构；</li>
+<li>Reddit 上用户开始比较 Claude Pro + ChatGPT Plus 的长期体验，而不是只看单次回答；</li>
+<li>ProductHunt 上 Fere AI 这类“让 agent 自动交易”的产品出现，直接把 AI 信任问题推到高风险场景。</li>
+</ul>
+<h3 id="_3">【判断】</h3>
+<p>AI 产品的下一个分水岭不是“谁更像人”，而是“谁更值得被授权”。信任不是一句 privacy policy，而是产品结构：权限边界、成本可见、记忆可编辑、输出可追溯、错误可回滚。</p>
+<p>对 Margin / mem-ai 来说，这是非常关键的提醒：如果我们想做长期陪伴、长期记忆，就不能把“我会记住你”包装成魔法。它必须是用户可见、可批改、可关闭、可导出的关系。否则 personal AI 很容易从亲密变成 creepy。</p>
 <hr />
-<h2 id="hn">HN 今日相关信号</h2>
-<table>
-<thead>
-<tr>
-<th>主题</th>
-<th style="text-align: right;">热度</th>
-<th>分类</th>
-<th>链接</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Most Americans don't trust AI – or the people in charge of it (2025)</td>
-<td style="text-align: right;">46p / 30c</td>
-<td>Developer tools</td>
-<td><a href="https://news.ycombinator.com/item?id=48174808">HN</a> / <a href="https://www.theverge.com/ai-artificial-intelligence/644853/pew-gallup-data-americans-dont-trust-ai">原文</a></td>
-</tr>
-<tr>
-<td>Slop Bucket Idea – a dataset of AI slop (train AI what not to do)</td>
-<td style="text-align: right;">2p / 4c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48174947">HN</a> / <a href="https://news.ycombinator.com/item?id=48174947">原文</a></td>
-</tr>
-<tr>
-<td>Reverse engineering Android malware from popular Chinese projectors</td>
-<td style="text-align: right;">8p / 1c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48174465">HN</a> / <a href="https://zanestjohn.com/blog/reing-with-claude-code">原文</a></td>
-</tr>
-<tr>
-<td>How fast is N tokens per second really?</td>
-<td style="text-align: right;">5p / 2c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48174920">HN</a> / <a href="https://mikeveerman.github.io/tokenspeed/">原文</a></td>
-</tr>
-<tr>
-<td>What A.I. Did to My College Class</td>
-<td style="text-align: right;">6p / 1c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48175111">HN</a> / <a href="https://www.nytimes.com/2026/05/17/opinion/chatgpt-ai-college-school-graduation.html">原文</a></td>
-</tr>
-<tr>
-<td>My Thoughts on Bun's Rust Rewrite</td>
-<td style="text-align: right;">6p / 1c</td>
-<td>Developer tools</td>
-<td><a href="https://news.ycombinator.com/item?id=48174497">HN</a> / <a href="https://en.liujiacai.net/2026/05/16/bun-rust-port/">原文</a></td>
-</tr>
-<tr>
-<td>LLM Performance by Programming Language</td>
-<td style="text-align: right;">4p / 1c</td>
-<td>Model / infra</td>
-<td><a href="https://news.ycombinator.com/item?id=48175083">HN</a> / <a href="https://gertlabs.com/blog/llm-performance-by-language">原文</a></td>
-</tr>
-<tr>
-<td>Yum Brands, Nvidia will deploy new AI at 500 restaurants</td>
-<td style="text-align: right;">2p / 2c</td>
-<td>Other</td>
-<td><a href="https://news.ycombinator.com/item?id=48174558">HN</a> / <a href="https://www.restaurantdive.com/news/yum-brands-nvidia-ai-taco-bell-pizza-hut-kfc-deal/742926/">原文</a></td>
-</tr>
-<tr>
-<td>AI Leak Watch: 435,608 potential AI API key matches in public GitHub code</td>
-<td style="text-align: right;">5p / 0c</td>
-<td>Developer tools</td>
-<td><a href="https://news.ycombinator.com/item?id=48175054">HN</a> / <a href="https://ai-keys-leaks.begimher.com/">原文</a></td>
-</tr>
-<tr>
-<td>How to use codex to get the most out of it</td>
-<td style="text-align: right;">5p / 0c</td>
-<td>Developer tools</td>
-<td><a href="https://news.ycombinator.com/item?id=48174417">HN</a> / <a href="https://jxnl.co/writing/2026/05/10/codex-maxxing/">原文</a></td>
-</tr>
-</tbody>
-</table>
-<p><strong>HN 读法：</strong> 表里的热度只代表公开讨论强度，不等于产品机会强度；日报优先把它当成“哪些问题在开发者社区变得可讨论”。</p>
+<h2 id="_4">次要热点</h2>
+<h3 id="1-gencad-ai-mesh">1. GenCAD：生成式 AI 开始碰“可编辑工程对象”，不是只生成 mesh / 图片</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48173429">GenCAD</a>（188p / 40c）</p>
+<p>GenCAD 的关键点是：它不是只生成 3D solid，而是尝试把 CAD latent 转成一串 parametric CAD commands。评论区很快抓住疑问：“Which CAD program?” 因为 CAD 的价值不在最终形状，而在可编辑的构造历史、约束、参数和后续工程流程。</p>
+<p>一条解释说：CAD 对象不是 mesh，而是一系列 primitive / sketch operations；这和 Blender 里的结果网格不同。</p>
+<p><strong>【判断】</strong> 这是 AI 生成进入专业工作流时必须跨过的一道坎：产物必须保留可编辑意图。对产品设计 / 文档 / roadmap 也一样：AI 不能只给结果，还要保留“为什么这么组织、哪些假设、哪些可以改”。这和 mem-ai 的“人类发言本身重要”很同源——中间过程不是噪音，而是可继续工作的对象。</p>
+<h3 id="2-reverse-engineering-android-malware-with-claude-codeai-heavy-prompt">2. Reverse engineering Android malware with Claude Code：AI-heavy 技术文章反而因为“prompt 透明”更可信</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48174465">Reverse engineering Android malware from popular Chinese projectors</a>（13p / 2c，2026-05-18）</p>
+<p>评论区有一条很值得记：</p>
+<blockquote>
+<p>“This is the first time I've read an AI-heavy piece and stayed engaged with it all the way through. I think the author's sharing the prompts was key to that experience.”</p>
+<p>（这是我第一次读一篇 AI-heavy 的文章能一直读下去。我觉得关键是作者分享了 prompts。）</p>
+</blockquote>
+<p>为什么这条重要：它说明用户不是天然讨厌 AI 参与，而是讨厌 AI 黑箱。只要过程透明，AI 可以增强可信度；如果过程不可见，就算结果对也让人不安。</p>
+<p><strong>【判断】</strong> 对我们的写作/调研/日报也有直接启发：高质量 AI 协作输出应该留下证据链——数据源、prompt/检索路径、判断如何得出。日报不是要隐藏 AI，而是要让 AI 的二次加工可检查。</p>
+<h3 id="3-how-fast-is-n-tokens-per-second-really">3. How fast is N tokens per second really?：用户需要“体感校准”，不是抽象指标</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48174920">How fast is N tokens per second really?</a>（5p / 3c，2026-05-18）</p>
+<p>这个小工具把 token/s 变成可视化体验。评论说它是很好的 “gut feel calibration utility”。</p>
+<p><strong>【判断】</strong> 这类小工具的启发是：AI 产品很多指标用户没有体感，比如 token、context、latency、memory recall、embedding 命中率。好产品要把内部指标翻译成用户能判断的感受：等多久、少重复多少、错在哪里、为什么引用这条记忆。</p>
+<h3 id="4-slop-bucket-idea-ai">4. Slop Bucket Idea：用户开始想训练 AI “不要做什么”</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48174947">Slop Bucket Idea – a dataset of AI slop</a>（2p / 4c，2026-05-18）</p>
+<p>这个点热度不高，但概念值得看：收集 AI slop 作为反例，训练 AI 学会什么不要做。</p>
+<p><strong>【判断】</strong> 这和你对日报质量的反馈正好相关。高质量偏好不只来自“好例子”，也来自“坏例子”。未来 skill 不应该只写规则，还应该沉淀 failure cases：哪些句子是空话、哪些结构是假完整、哪些阻断说明是在逃避工作。</p>
 <hr />
-<h2 id="producthunt-2026-05-17">ProductHunt 榜单（2026-05-17）</h2>
+<h2 id="producthunt-2026-05-17">ProductHunt 2026-05-17 榜单解读</h2>
 <table>
 <thead>
 <tr>
 <th style="text-align: right;">排名</th>
 <th>产品</th>
 <th style="text-align: right;">票数/评论</th>
-<th>Topics</th>
-<th>Builder 观察</th>
+<th>产品机制</th>
+<th>判断</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: right;">1</td>
-<td><a href="https://www.producthunt.com/products/fere-ai?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Fere AI</a>：AI agents that turn signals into crypto + Polymarket trades</td>
-<td style="text-align: right;">381 / 49</td>
-<td>Fintech, Artificial Intelligence, Web3</td>
-<td>Agent workflow / automation；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/viva">Vivago Video Agent</a></td>
+<td style="text-align: right;">398 / 52</td>
+<td>“Skip the prompting”，持续产出 compelling videos</td>
+<td>创意 AI 的趋势是减少 prompt burden，用 agent 承担创作控制。</td>
 </tr>
 <tr>
 <td style="text-align: right;">2</td>
-<td><a href="https://www.producthunt.com/products/viva?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Vivago Video Agent</a>：Skip the prompting. Produce consistently compelling videos.</td>
-<td style="text-align: right;">375 / 46</td>
-<td>Productivity, Marketing, Artificial Intelligence</td>
-<td>Agent workflow / automation；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/fere-ai">Fere AI</a></td>
+<td style="text-align: right;">397 / 51</td>
+<td>AI agents turn signals into crypto + Polymarket trades</td>
+<td>高风险 agent：直接把信息信号转成交易动作，信任/回滚/责任问题最尖锐。</td>
 </tr>
 <tr>
 <td style="text-align: right;">3</td>
-<td><a href="https://www.producthunt.com/products/sun-ai?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">SUN-to-Spotify </a>：Generate audio with SUN and send it to your Spotify library</td>
-<td style="text-align: right;">299 / 27</td>
-<td>Education, Artificial Intelligence, Audio</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/sun-ai">SUN-to-Spotify</a></td>
+<td style="text-align: right;">301 / 27</td>
+<td>生成音频后送入 Spotify library</td>
+<td>生成内容进入用户原有媒体库，而不是停留在 demo 页面。</td>
 </tr>
 <tr>
 <td style="text-align: right;">4</td>
-<td><a href="https://www.producthunt.com/products/files-sdk?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Files SDK</a>：A unified storage SDK for object and blob backends</td>
-<td style="text-align: right;">204 / 5</td>
-<td>Open Source, Developer Tools, GitHub, SDK</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
-</tr>
-<tr>
-<td style="text-align: right;">5</td>
-<td><a href="https://www.producthunt.com/products/kirki?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Kirki</a>：WordPress finally has a freeform canvas website builder.</td>
-<td style="text-align: right;">179 / 8</td>
-<td>Design Tools, WordPress, Website Builder</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
-</tr>
-<tr>
-<td style="text-align: right;">6</td>
-<td><a href="https://www.producthunt.com/products/offshelf-learn-focus?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">OffShelf: Learn &amp; Focus</a>：Stop procrastenating on things you should learn!</td>
-<td style="text-align: right;">14 / 5</td>
-<td>Android, Productivity, Task Management, Education</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://www.producthunt.com/products/files-sdk">Files SDK</a></td>
+<td style="text-align: right;">208 / 5</td>
+<td>unified storage SDK for object/blob backends</td>
+<td>agent / app 需要统一文件层，尤其是多云、多后端、长期存储。</td>
 </tr>
 <tr>
 <td style="text-align: right;">7</td>
-<td><a href="https://www.producthunt.com/products/codebreak?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">CodeBreak</a>：Claude Code Companion. Done, Blocked, Broken - you'll know</td>
+<td><a href="https://www.producthunt.com/products/codebreak">CodeBreak</a></td>
 <td style="text-align: right;">11 / 1</td>
-<td>Productivity, Developer Tools, Artificial Intelligence</td>
-<td>Developer tools；看它是否解决持续工作流，而不是一次性 demo。</td>
-</tr>
-<tr>
-<td style="text-align: right;">8</td>
-<td><a href="https://www.producthunt.com/products/chessbout?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">ChessBout</a>：Multiple-choice chess duels &amp; daily challenges ♟️</td>
-<td style="text-align: right;">11 / 12</td>
-<td>Indie Games, Puzzle Games, Games</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td>Claude Code Companion：Done / Blocked / Broken 状态通知</td>
+<td>coding agent 后台跑后，需要状态通知和 human control plane。</td>
 </tr>
 <tr>
 <td style="text-align: right;">9</td>
-<td><a href="https://www.producthunt.com/products/ludr-ai-understand-any-screen?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29"> Ludr AI — Understand Any Screen</a>：AI layer that understands and acts across your desktop</td>
+<td><a href="https://www.producthunt.com/products/ludr-ai-understand-any-screen">Ludr AI — Understand Any Screen</a></td>
 <td style="text-align: right;">9 / 1</td>
-<td>Productivity, Developer Tools, Artificial Intelligence</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td>AI layer understands and acts across desktop</td>
+<td>desktop computer-use 继续出现，但权限和安全会是最大阻力。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ph">PH 今日共识</h3>
+<p>今天 PH 的核心不是榜首视频工具，而是三类“高授权 agent”同时出现：</p>
+<ol>
+<li><strong>创意授权</strong>：Vivago 替你减少 prompting；</li>
+<li><strong>金融授权</strong>：Fere AI 替你把信号变交易；</li>
+<li><strong>桌面授权</strong>：Ludr AI 理解并操作屏幕；</li>
+<li><strong>编码授权</strong>：CodeBreak 让你知道 Claude Code done / blocked / broken。</li>
+</ol>
+<p><strong>【判断】</strong> 授权越深，产品越不能只讲能力。Fere AI 这种产品如果真做交易，最关键不是“agent 找到了信号”，而是：信号来源是什么、仓位如何限制、错了怎么停、用户如何复盘。CodeBreak 虽然小，但方向更健康：不是替 agent 增加能力，而是给人一个控制面。</p>
+<hr />
+<h2 id="github-trending-2026-05-18">GitHub Trending 今日（2026-05-18 实时）</h2>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th style="text-align: right;">Stars today</th>
+<th>一句话</th>
+<th>为什么值得看</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/tinyhumansai/openhuman">tinyhumansai/openhuman</a></td>
+<td style="text-align: right;">1,690</td>
+<td>Private personal AI super intelligence</td>
+<td>PH #1 后继续 GitHub #1，personal AI / private AI 强共振。</td>
 </tr>
 <tr>
-<td style="text-align: right;">10</td>
-<td><a href="https://www.producthunt.com/products/screenshot-beautifier-pro?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Screenshot Beautifier Pro</a>：Elevate your screenshots</td>
-<td style="text-align: right;">9 / 1</td>
-<td>Chrome Extensions, Design Tools, Productivity, Developer Tools</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://github.com/oven-sh/bun">oven-sh/bun</a></td>
+<td style="text-align: right;">910</td>
+<td>JS runtime / bundler / test runner</td>
+<td>Rust rewrite 余波仍在，runtime 层工程治理继续受关注。</td>
 </tr>
 <tr>
-<td style="text-align: right;">11</td>
-<td><a href="https://www.producthunt.com/products/been-there-2?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Been There</a>：Know Before You Go. Travel Smarter, Stay Safer.</td>
-<td style="text-align: right;">8 / 1</td>
-<td>Social Network, Travel, Community</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://github.com/Anil-matcha/Open-Generative-AI">Anil-matcha/Open-Generative-AI</a></td>
+<td style="text-align: right;">703</td>
+<td>self-hosted image/video generation studio，200+ models</td>
+<td>生成式平台开源化；“no filters / self-hosted”会有合规争议。</td>
 </tr>
 <tr>
-<td style="text-align: right;">12</td>
-<td><a href="https://www.producthunt.com/products/snapsub-subscriptions-hub?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">SnapSub - subscriptions hub</a>：SnapSub - Stop paying for subscriptions you forgot about</td>
-<td style="text-align: right;">8 / 3</td>
-<td>iOS, Productivity, Finance</td>
-<td>Other；看它是否解决持续工作流，而不是一次性 demo。</td>
+<td><a href="https://github.com/K-Dense-AI/scientific-agent-skills">K-Dense-AI/scientific-agent-skills</a></td>
+<td style="text-align: right;">762</td>
+<td>research / science / finance / writing agent skills</td>
+<td>skills 从个人配置走向 domain packs。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/calcom/cal.diy">calcom/cal.diy</a></td>
+<td style="text-align: right;">433</td>
+<td>scheduling infrastructure</td>
+<td>非 AI 但重要：日程/预约仍是 agent 工作流基础设施。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/BigBodyCobain/Shadowbroker">BigBodyCobain/Shadowbroker</a></td>
+<td style="text-align: right;">333</td>
+<td>open-source intelligence aggregation</td>
+<td>OSINT + agent 解析相关性，适合观察“agent 读开放世界数据”。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/tech-leads-club/agent-skills">tech-leads-club/agent-skills</a></td>
+<td style="text-align: right;">225</td>
+<td>secure validated skill registry for coding agents</td>
+<td>skills registry 开始强调安全和验证。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/NirDiamant/agents-towards-production">NirDiamant/agents-towards-production</a></td>
+<td style="text-align: right;">172</td>
+<td>production-grade GenAI agent tutorials</td>
+<td>agent 从 demo 走向 production education。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dograh-hq/dograh">dograh-hq/dograh</a></td>
+<td style="text-align: right;">223</td>
+<td>open-source voice agent platform</td>
+<td>voice agent 开源平台，和个人 AI / ambient interface 有关。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Light-Heart-Labs/DreamServer">Light-Heart-Labs/DreamServer</a></td>
+<td style="text-align: right;">112</td>
+<td>local AI anywhere：LLM / chat / voice / agents / RAG / image</td>
+<td>local-first personal AI stack。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/KeygraphHQ/shannon">KeygraphHQ/shannon</a></td>
+<td style="text-align: right;">200</td>
+<td>white-box AI pentester</td>
+<td>agent 进入安全测试，必须可审计、可复现。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="github">GitHub 今日共识</h3>
+<p>GitHub 今天几乎把过去三天的主题串起来了：</p>
+<ul>
+<li>personal AI：OpenHuman / DreamServer；</li>
+<li>agent-native software：CLI-Anything；</li>
+<li>skills / registry：agent-skills / scientific-agent-skills；</li>
+<li>production agent：agents-towards-production；</li>
+<li>high-risk vertical agent：Shannon / Shadowbroker。</li>
+</ul>
+<p><strong>【判断】</strong> skills 正在从“个人提示词资产”变成“可分发、可验证、可安全审计的工作流模块”。这和 Hermes skill 的方向完全一致，但今天你的反馈也说明：skill 不能只是流程文档，还要包含质量样例、失败样例和隐藏 memory 的迁移。</p>
+<hr />
+<h2 id="reddit-24h">Reddit 当前 24h 热议</h2>
+<h3 id="rclaudeai">r/ClaudeAI</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">热度</th>
+<th>主题</th>
+<th>信号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">571p / 161c</td>
+<td>Honest comparison after 4 months running Claude Pro + ChatGPT Plus side by side</td>
+<td>重度用户开始按月比较两个订阅的长期价值，而不是单次模型能力。</td>
+</tr>
+<tr>
+<td style="text-align: right;">351p / 67c</td>
+<td>Opus is ridiculous for frontend cleanup</td>
+<td>Claude 在前端 cleanup / refactor 这种具体任务仍有强口碑。</td>
+</tr>
+<tr>
+<td style="text-align: right;">339p / 53c</td>
+<td>Average LinkedIn profile today</td>
+<td>社区对 AI 化表达 / LinkedIn slop 的反感继续上升。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rlocalllama">r/LocalLLaMA</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">热度</th>
+<th>主题</th>
+<th>信号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">406p / 157c</td>
+<td>M5 vs DGX Spark vs Strix Halo vs RTX 6000</td>
+<td>本地 AI 用户在认真比较硬件路线，local-first 不只是口号。</td>
+</tr>
+<tr>
+<td style="text-align: right;">331p / 53c</td>
+<td>I hope that someday we will have a 124B Gemma</td>
+<td>开源大模型期待继续集中在“可本地运行但足够强”。</td>
+</tr>
+<tr>
+<td style="text-align: right;">230p / 55c</td>
+<td>85 GPU-hours comparing 5 abliteration methods on Qwen3.6-27B</td>
+<td>社区在做非常工程化的模型行为修改实验。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ropenai-rmachinelearning-robsidianmd-pkms">r/OpenAI / r/MachineLearning / r/ObsidianMD / PKMS</h3>
+<ul>
+<li>r/OpenAI：<code>My free account has cost OpenAI about $337.70</code>（241p / 51c）——用户开始把 AI 使用折算成 provider 成本，补贴时代的感知在变。</li>
+<li>r/MachineLearning：<code>Slop is making me feel disconnected from AI Research</code>（145p / 43c）——研究社区也在反感 AI slop，不只是普通用户。</li>
+<li>r/ObsidianMD：<code>ZotFlow — the all-in-one Zotero plugin for Obsidian</code>（142p / 27c）——知识工作流仍在围绕文献、注释、同步、引用做整合。</li>
+<li>r/PKMS：<code>2,000+ graveyard of saved content I'll "get back to" but never do</code>——保存内容坟场是 PKM 老问题，AI 摘要如果不能转化成行动，只是更大的坟场。</li>
+</ul>
+<h3 id="reddit">Reddit 今日共识</h3>
+<ul>
+<li>Claude / ChatGPT 的比较进入“长期订阅价值”阶段；</li>
+<li>AI slop 引起开发者、研究者、普通用户多侧反感；</li>
+<li>local-first / hardware / self-hosting 仍在增强；</li>
+<li>PKM 用户不是缺保存，而是缺把保存内容变回活问题和下一步行动。</li>
+</ul>
+<hr />
+<h2 id="_5">追踪产品更新</h2>
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>本期状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Personal AI / memory</td>
+<td>明显增强</td>
+<td>OpenHuman 连续 PH + GitHub 强信号；Agentmemory 上榜；Relay 余波；Reddit PKM 坟场问题继续。</td>
+</tr>
+<tr>
+<td>Agent skills</td>
+<td>增强</td>
+<td>GitHub 上 agent-skills / scientific-agent-skills / agents-towards-production 同时出现。</td>
+</tr>
+<tr>
+<td>Browser / desktop / computer use</td>
+<td>持续出现</td>
+<td>Ludr AI、CLI-Anything、Shadowbroker、Open-Generative-AI 都在扩展 agent 触达环境。</td>
+</tr>
+<tr>
+<td>Agent control plane</td>
+<td>增强但仍早期</td>
+<td>CodeBreak 是小产品，但“done / blocked / broken”非常接近真实需求。</td>
+</tr>
+<tr>
+<td>AI trust / anti-slop</td>
+<td>明显增强</td>
+<td>HN AI hate wave、Pew/Gallup trust、Reddit AI research slop、LinkedIn slop 同时出现。</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="github-trending-created2026-05-18">GitHub 今日（历史 Trending 替代：created:2026-05-18）</h2>
-<p>GitHub Trending 没有官方历史 API；补档日报使用 GitHub Search API 按创建日期和 stars 做替代，不能等同于当日 Trending。</p>
-<p>[阻断] GitHub Search：HTTP Error 403: rate limit exceeded; HTTP Error 403: rate limit exceeded。</p>
-<hr />
-<h2 id="reddit">Reddit 今日热议</h2>
-<p>[阻断] Reddit 历史 top/day 在当前环境不可稳定回溯，且直接 JSON/RSS 经常 403；本期不编造 Reddit 条目。</p>
-<hr />
-<h2 id="_1">赛道雷达</h2>
+<h2 id="_6">赛道雷达</h2>
 <table>
 <thead>
 <tr>
@@ -202,43 +331,43 @@
 </thead>
 <tbody>
 <tr>
-<td>Developer tools</td>
-<td>Most Americans don't trust AI – or the people in charge of it (2025)；My Thoughts on Bun's Rust Rewrite；CodeBreak</td>
-<td>把零散能力包装成可重复工作流、验证层或记忆层。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
+<td>Personal AI / memory</td>
+<td>OpenHuman、Agentmemory、DreamServer、PKMS saved-content graveyard</td>
+<td>做“活的记忆”：能过期、能复盘、能回到行动</td>
+<td>只存更多内容会制造更大的认知债务</td>
 </tr>
 <tr>
-<td>Other</td>
-<td>Slop Bucket Idea – a dataset of AI slop (train AI what not to do)；Reverse engineering Android malware from popular Chinese projectors；How fast is N tokens per second really?；What A.I. Did to My College Class</td>
-<td>观察是否有持续使用场景。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
+<td>Agent skills / registry</td>
+<td>agent-skills、scientific-agent-skills、Hermes skill 反馈</td>
+<td>skills 需要质量样例、失败样例、验证机制</td>
+<td>skill 变成 prompt 仓库会快速失效</td>
 </tr>
 <tr>
-<td>Model / infra</td>
-<td>LLM Performance by Programming Language</td>
-<td>观察是否有持续使用场景。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
+<td>AI trust / anti-slop</td>
+<td>AI hate wave、Most Americans don't trust AI、ML slop</td>
+<td>产品要把过程、证据、成本、权限可视化</td>
+<td>忽视情绪反噬会让 personal AI 被用户本能拒绝</td>
 </tr>
 <tr>
-<td>Agent workflow / automation</td>
-<td>Fere AI；Vivago Video Agent</td>
-<td>把零散能力包装成可重复工作流、验证层或记忆层。</td>
-<td>同质化和 demo 化；需要真实使用证据。</td>
+<td>High-risk agents</td>
+<td>Fere AI、Shannon、Shadowbroker、Ludr AI</td>
+<td>金融、安全、OSINT、桌面自动化都有真实需求</td>
+<td>错误成本高，必须先做控制面和审计</td>
+</tr>
+<tr>
+<td>Creative agent</td>
+<td>Vivago、Open-Generative-AI、Loova 余波</td>
+<td>“少 prompt、持续风格、进入媒体库”是方向</td>
+<td>同质化、版权、审美疲劳</td>
+</tr>
+<tr>
+<td>Knowledge workflow</td>
+<td>ZotFlow、Obsidian、PKMS 坟场</td>
+<td>从保存/摘要走向“重新激活问题”</td>
+<td>继续堆保存入口只会加重负担</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="_2">不容错过</h2>
-<ol>
-<li><strong><a href="https://news.ycombinator.com/item?id=48174808">Most Americans don't trust AI – or the people in charge of it (2025)</a></strong><br />
-   来源：HN。关注点：它是否在 agent / developer / personal AI 的日常工作流里产生重复使用，而不只是新奇功能。</li>
-<li><strong><a href="https://www.producthunt.com/products/fere-ai?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Fere AI — AI agents that turn signals into crypto + Polymarket trades</a></strong><br />
-   来源：PH。关注点：它是否在 agent / developer / personal AI 的日常工作流里产生重复使用，而不只是新奇功能。</li>
-<li><strong><a href="https://www.producthunt.com/products/viva?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">Vivago Video Agent — Skip the prompting. Produce consistently compelling videos. </a></strong><br />
-   来源：PH。关注点：它是否在 agent / developer / personal AI 的日常工作流里产生重复使用，而不只是新奇功能。</li>
-<li><strong><a href="https://www.producthunt.com/products/sun-ai?utm_campaign=producthunt-api&amp;utm_medium=api-v2&amp;utm_source=Application%3A+dev-digest+%28ID%3A+280390%29">SUN-to-Spotify  — Generate audio with SUN and send it to your Spotify library</a></strong><br />
-   来源：PH。关注点：它是否在 agent / developer / personal AI 的日常工作流里产生重复使用，而不只是新奇功能。</li>
-</ol>
 <hr />
 <h2 id="active-questions">Active Questions 雷达</h2>
 <table>
@@ -252,45 +381,92 @@
 <tbody>
 <tr>
 <td>Agent PM 怎么评测 agent？</td>
-<td>HN / GitHub 中的 agent、developer workflow、benchmark 信号</td>
-<td>继续把“验证、回滚、可审计”当作 agent 产品的核心评估维度。</td>
+<td>CodeBreak、Shannon、agent-skills、AI trust crisis</td>
+<td>评测要包含“done / blocked / broken 状态识别”、权限边界、审计、失败恢复。</td>
 </tr>
 <tr>
 <td>一人公司 + AI 虚拟同事</td>
-<td>PH / GitHub 中的 automation、memory、coding agent 工具</td>
-<td>单人公司真正需要的是可交付的工作流，不是 persona。</td>
+<td>OpenHuman、DreamServer、Agentmemory、CodeBreak</td>
+<td>虚拟同事的核心不是拟人，而是长期上下文 + 可控执行 + 状态汇报。</td>
 </tr>
 <tr>
-<td>AI 产品 activation/留存</td>
-<td>PH 榜单产品的持续场景</td>
-<td>留存信号来自跨天/跨任务记忆、审批流和自动化结果复用。</td>
+<td>AI 产品 activation / 留存</td>
+<td>Claude vs ChatGPT 4个月对比、PKMS 内容坟场</td>
+<td>留存不是首日 wow，而是 4 个月后用户仍觉得它减少重复、没有制造债务。</td>
 </tr>
 <tr>
 <td>AI PKM / knowledge management</td>
-<td>memory / notes / knowledge 类产品</td>
-<td>PKM 机会仍在“保存之后如何每天用上”。</td>
+<td>ZotFlow、PKMS 2,000+ graveyard、OpenHuman</td>
+<td>PKM 的关键不是保存更多，而是判断哪些内容仍然是活问题。</td>
 </tr>
 <tr>
 <td>MCP 生态走向</td>
-<td>MCP / tool / browser automation 相关项目</td>
-<td>MCP 价值要落到具体动作和权限边界。</td>
+<td>CLI-Anything、agent skills、MCP Hello Page 余波</td>
+<td>MCP / CLI / skills 都在把软件变 agent-native，但用户信任层仍缺。</td>
+</tr>
+<tr>
+<td>AI 增长实践</td>
+<td>AI hate wave、LinkedIn slop、Vivago / Open-Generative-AI</td>
+<td>AI 内容增长如果变成 slop，会反噬品牌；真实表达和过程透明反而更稀缺。</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_3">今日共识 / 非共识</h2>
+<h2 id="_7">今日共识 / 非共识</h2>
+<p><strong>共识</strong></p>
 <ul>
-<li><strong>共识：</strong> AI 产品从模型能力展示走向 workflow、memory、automation、developer control plane。</li>
-<li><strong>非共识：</strong> 哪些能力应该自动执行，哪些必须保留 human approval；这个边界仍取决于错误成本和回滚能力。</li>
+<li>AI slop 和 trust crisis 已经不是边缘情绪，而是主流采用的阻力。</li>
+<li>开发者生态正在用 skills、registry、memory、control plane、local-first 来修补信任问题。</li>
+<li>personal AI / memory / local AI 三条线正在合流。</li>
 </ul>
+<p><strong>非共识</strong></p>
+<ul>
+<li>用户到底想要多主动的 personal AI？主动越强，越容易越界。</li>
+<li>skills 应该开放共享，还是应该高度个人化？公开 skills 有分发价值，但私人 skills 才能贴合真实工作。</li>
+<li>高风险 agent（交易、安全、桌面操作）是下一波机会，还是下一波事故源？</li>
+</ul>
+<hr />
+<h2 id="_8">不容错过</h2>
+<ol>
+<li>
+<p><strong>An AI Hate Wave Is Here + Most Americans don't trust AI</strong><br />
+   这两条应该作为接下来 personal AI 产品设计的底噪：用户不是单纯怕 AI，而是怕不可见、不可控、不可追责。</p>
+</li>
+<li>
+<p><strong>GitHub Trending 上的 agent-skills / scientific-agent-skills</strong><br />
+   skills 正在品类化。下一步要补的是质量标准、版本演进、失败样例和验证，而不只是写更多 skill。</p>
+</li>
+<li>
+<p><strong>OpenHuman / DreamServer / Agentmemory</strong><br />
+   personal AI、local AI、agent memory 正在合流；但真正机会是“活记忆”，不是“更大的保存箱”。</p>
+</li>
+<li>
+<p><strong>CodeBreak</strong><br />
+   票数很小，但方向对：当 coding agent 后台运行，人需要一个简单状态层知道 Done / Blocked / Broken。这个比又一个“更强 agent”更接近真实 workflow。</p>
+</li>
+<li>
+<p><strong>PKMS 的 2,000+ saved content graveyard</strong><br />
+   这是知识管理产品永远不能忘的问题：用户不缺保存入口，缺的是把内容重新变成活问题、决策和行动。</p>
+</li>
+</ol>
+<hr />
 <h2 id="builder-takeaways">Builder Takeaways</h2>
 <ol>
-<li>补档日报只用可复查来源；缺失的 Reddit / 历史 Trending 不补幻想。</li>
-<li>对 builder 更有价值的是跨来源重复出现的问题：agent 验证、个人记忆、自动化控制面、工作流留存。</li>
-<li>任何 AI 产品判断都要追问：用户明天还会不会再次打开？结果能否被检查、修正、复用？</li>
+<li>
+<p><strong>把 trust surface 当产品核心。</strong> 对长期陪伴型 AI，记忆、权限、成本、来源、删除、导出都应该可见。不要把它们藏在设置页深处。</p>
+</li>
+<li>
+<p><strong>skill 需要正例和反例。</strong> 今天这次日报重写本身就是教训：只有流程规则不够，skill 里要有高质量样例、失败样例、质量检查表。否则 agent 会按流程完成、按质量失败。</p>
+</li>
+<li>
+<p><strong>个人 AI 的记忆要服务“活问题”。</strong> PKM 坟场提醒我们：AI 如果只是把更多网页、批注、截图塞进记忆库，就是制造认知债务。真正的产品价值是识别什么仍然重要、什么可以沉睡、什么应该触发下一步。</p>
+</li>
+<li>
+<p><strong>未来日报也应该变成一个 memory/skill 系统。</strong> 不是每天重抓新闻，而是持续追踪问题：vibe coding 是否收敛、招聘 AI 为什么天天出现、MCP 是否成标准、记忆 benchmark 如何设计、building in public 怎么开始。</p>
+</li>
 </ol>
-<h2 id="_4">一句话总结</h2>
-<p>2026-05-18 的可回溯公开信号显示：AI builder 赛道继续从“模型会什么”转向“工作流如何被安全、可控、可复用地执行”。</p>
+<h2 id="_9">一句话总结</h2>
+<p>2026-05-18 的核心信号是：AI 的能力竞赛没有结束，但用户已经开始要求信任、控制、记忆质量和反 slop；谁能把这些做成可见产品结构，谁才有资格成为长期 AI 同事。</p>
 <hr />
-<p>生成时间：2026-05-18 12:16:55 <br />
-数据源：HN Algolia API / ProductHunt GraphQL API / GitHub Search API / 本地 Active Questions。</p></body></html>
+<p>生成时间：2026-05-18<br />
+数据核验：HN 2026-05-17 UTC + 2026-05-18 当日中午实时、ProductHunt 2026-05-17 API、GitHub Trending 2026-05-18 浏览器实时抓取、Reddit 当前 24h、Notion / AQ 本地上下文。</p></body></html>
