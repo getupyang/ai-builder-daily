@@ -1,0 +1,432 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Builder Daily</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:980px;margin:36px auto;padding:0 20px;line-height:1.7;color:#1f2937}a{color:#0969da;text-decoration:none}a:hover{text-decoration:underline}blockquote{border-left:4px solid #d0d7de;padding-left:16px;color:#57606a}table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid #d0d7de;padding:6px 10px}th{background:#f6f8fa}code{background:#f6f8fa;padding:2px 4px;border-radius:4px}.muted{color:#57606a}</style></head><body><h1 id="2026-05-19">今日情报 2026-05-19（周二）</h1>
+<p><strong>数据来源：</strong> HN（2026-05-18 UTC + 2026-05-19 当日早间实时，Algolia 经浏览器抓取；terminal 侧 HN SSL 握手不稳定）· ProductHunt API（2026-05-18）· GitHub Trending（2026-05-19 浏览器实时抓取）· Reddit 当前 24h（ClaudeAI / LocalLLaMA / OpenAI / MachineLearning / ObsidianMD / ProductManagement 等）· Active Questions / Notion 批注（2026-05-19 同步）</p>
+<blockquote>
+<p><strong>今日分散信号：没有必要强行归纳成单一主线，今天更像四条独立线索同时值得看。</strong><br />
+1）HN 最高热帖是开源项目如何挡住 AI bot spam PR；2）GitHub Trending 继续被 personal AI、Claude skills、agent-native CLI、skills registry 占据；3）PH 上 LobeHub / Shadow / M1 / Triggered Agents 都在把 agent 包成“可运营的工作系统”；4）Reddit 上 Claude Code 经验、4B coding agent、Qwen 3.7、本地模型、ProductManagement 对 “chat with your data” 的反感，说明用户已经不满足于“给模型一个入口”，而是在追问：谁来组织工作、谁来验证质量、谁来避免噪音。</p>
+</blockquote>
+<hr />
+<h2 id="github-repo-ai-pr-spam-archestra-git-author-captcha">今日最大的事：GitHub repo 开始被 AI PR spam 攻击，Archestra 用 Git author + captcha 做“贡献者门禁”</h2>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48181125">We stopped AI bot spam in our GitHub repo using Git's –author flag</a>（416p / 190c，2026-05-18 UTC）</p>
+<h3 id="_1">这件事是什么</h3>
+<p>Archestra 的开源 repo 遇到了大量 AI bot spam：PR / issue 由脚本或 agent 批量生成，质量低、消耗 maintainer 注意力。它们的解决方案不是让 maintainer 人肉审核，而是利用 GitHub 的 “require prior contribution” 机制 + 一个网站 captcha：用户通过 captcha 后，CI 脚本创建一个 tiny commit，并用 <code>--author</code> 把用户加为 co-author，从而让这个用户满足“已有贡献者”的门槛。</p>
+<p>作者在 HN 评论里补充：</p>
+<blockquote>
+<p>“We enabled ‘require prior contribution’ flag on GH and created a CI script that creates a tiny commit co-authored with you, if you pass captcha on our website. Worked really well and we were able to block at least 500 bots in the first week.”</p>
+<p>（我们打开 GitHub 的“需要已有贡献”开关，然后做了一个 CI 脚本：如果你在我们网站通过 captcha，就创建一个带你 co-author 的小 commit。效果很好，第一周至少挡住了 500 个 bot。）</p>
+</blockquote>
+<p>评论区有人觉得这个解法优雅，也有人指出副作用：这会不会把“尚未证明能力的人”提前加进 contributor list？另一个评论则说，真正的问题是 bounty repo 的 PR spam：如果 95% 以上 PR 都被拒，GitHub 是否应该临时限制账号继续发 PR？</p>
+<h3 id="_2">为什么值得看</h3>
+<p>这条不是单纯 GitHub 小技巧，而是 AI agent 普及后的“公共基础设施污染”样本：</p>
+<ul>
+<li>过去 spam 更多发生在邮件、评论区、SEO；</li>
+<li>现在 agent 能直接进入开源协作现场，发 issue / PR / implementation plan；</li>
+<li>maintainer 的稀缺资源不是 CI 机器，而是注意力和信任；</li>
+<li>开源项目开始需要“贡献者身份门禁”和 anti-agent-abuse 机制。</li>
+</ul>
+<p>这和前几天的 “I tried to make Claude make me money on open-source bounties” 连在一起：公开任务池 + AI 自动提交 = 过度捕捞 + 噪音外部性。只要任务可以被 atomically 转成收益或声誉，AI 就会把它刷爆。</p>
+<h3 id="_3">【判断】</h3>
+<p>对 agent 产品来说，这是非常具体的信任边界问题：<strong>agent 不只会帮用户提效，也会污染公共协作空间。</strong> 下一代开发者平台可能需要内建：AI-generated PR 标识、贡献者信誉、agent rate limit、低质量 PR 惩罚、human review budget 保护。</p>
+<p>对 Margin / mem-ai 的启发是反向的：如果我们要做“AI 同事”，就不能让它成为别人系统里的噪音制造者。任何主动行动都应该有“该不该打扰别人”的判断层，而不只是“能不能生成”。</p>
+<hr />
+<h2 id="_4">次要热点</h2>
+<h3 id="1-qwen-35-api">1. Qwen 3.5 权重内的政治审查：模型对齐不是 API 层问题，可能已经写进权重表示</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48187680">What political censorship looks like inside an LLM's weights (Qwen 3.5)</a>（55p / 21c，2026-05-19 早间）</p>
+<p>这篇文章试图分析 Qwen 3.5 权重中与政治审查相关的内部表示。评论区有一个关键观察：base 模型可能已经有事实知识，但 alignment / refusal / control vector 会影响回答方式。</p>
+<p>一条评论说：</p>
+<blockquote>
+<p>“The factual knowledge is already in pretraining. Qwen3.5-9B-Base, the unaligned predecessor, gives accurate, Western-framed answers…”</p>
+<p>（事实知识在预训练中已经存在。未对齐的 Qwen3.5-9B-Base 会给出准确的、西方框架下的回答……）</p>
+</blockquote>
+<p>另一个评论把它和其他模型的 refusal 行为对比，说显式拒答反而更容易控制；隐性偏置/审查更难判断。</p>
+<p><strong>【判断】</strong> 这对“AI 记忆 / 个性化 / 长期陪伴”也有关系。用户常常以为模型“知道/不知道”某件事，但更真实的产品问题是：模型知道什么、愿意说什么、以什么框架说、在什么上下文里改变说法。这意味着 personal AI 不能只做“记住用户偏好”，还要让用户理解模型自身的偏置和边界。</p>
+<h3 id="2-coding-harness-introspection-agent-coding-harness">2. Coding harness introspection：大家开始研究 agent 是如何使用 coding harness 的</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48187643">how coding harnesses are used, an introspection</a>（5p / 2c）</p>
+<p>作者说他们在 Tamarillo 做 coding harness 标准化工具，这篇是尝试理解 coding harness 使用方式的一小片切面。虽然热度不高，但它和 GitHub Trending 上的 <code>12-factor-agents</code>、<code>agent-skills</code>、<code>academic-research-skills</code> 是同一个方向：agent 工程开始从“模型提示词”进入“harness / runtime / workflow discipline”。</p>
+<p><strong>【判断】</strong> 这条值得继续追踪，因为你一直在问 memory benchmark 怎么设计。coding harness 是一个可评测对象：输入任务、repo 状态、工具权限、agent 行为日志、测试结果都可以记录。相比个人记忆 benchmark，它更窄但更容易科学化。我们应该把 coding harness 的评测方式当作 memory harness 的参照，而不是只看模型榜单。</p>
+<h3 id="3-the-american-rebellion-against-ai-is-gaining-steam-ai-trust">3. The American Rebellion Against AI Is Gaining Steam：昨天的 AI trust 反噬还在继续</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48188310">The American Rebellion Against AI Is Gaining Steam</a>（5p / 2c）</p>
+<p>热度不高，但它延续了昨天的 AI hate wave / trust crisis。评论区情绪很直白：普通人不想被推向失业和贫困，也不觉得大公司天然有权用 AI 重构他们的生活。</p>
+<p><strong>【判断】</strong> 这条不是每天都要展开，但要放进长期观察：AI 的公众舆论可能会经历类似“新技术兴奋 → 过度采用 → 反感/监管 → 稳定再吸收”的周期。你昨天批注里问到“未来 10 年公众对新科技态度会怎样变化”，这可以单独做一篇科幻/技术史/舆论周期的深挖，不适合在日报里硬展开。</p>
+<h3 id="4-local-model-in-may-2026">4. Local model in May 2026：本地模型价值正在从“能不能跑”转向“能不能做具体工作”</h3>
+<p><strong>来源：</strong> HN · <a href="https://news.ycombinator.com/item?id=48188117">What can a local model do for you in early May 2026?</a>（2p / 1c）· Reddit r/LocalLLaMA 相关热帖</p>
+<p>HN 评论指出这类文章很快过期，因为本地模型变化太快。Reddit r/LocalLLaMA 今天也在讨论 Qwen 3.7、4B coding agent、42 个模型构建“apocalypse”的意愿测试。</p>
+<p><strong>【判断】</strong> 本地 AI 的问题已经不是“本地能不能聊天”，而是“本地能不能承担可靠、可重复、可评测的小任务”。这和我们做页面缓存、摘要、候选记忆抽取有关：后台任务可以先用本地/便宜模型跑，但写入长期记忆前必须再过一层质量验证。</p>
+<hr />
+<h2 id="producthunt-2026-05-18">ProductHunt 2026-05-18 榜单解读</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">排名</th>
+<th>产品</th>
+<th style="text-align: right;">票数/评论</th>
+<th>产品机制</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td><a href="https://www.producthunt.com/">SocLeads 3.0</a></td>
+<td style="text-align: right;">386 / 69</td>
+<td>按地点从 social / maps 抓 emails</td>
+<td>增长工具仍在卖“找到联系人”，但和 AI agent 结合后会更接近灰色自动化。</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>LobeHub</td>
+<td style="text-align: right;">352 / 63</td>
+<td>“Chief Agent Operator for multi-agent work”</td>
+<td>很接近“agent 工作台 / 调度台”叙事；值得看它是不是只做 UI，还是能真的管多 agent 状态。</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>ReactVision Studio</td>
+<td style="text-align: right;">221 / 15</td>
+<td>React Native 构建 AR/VR app，并直接发设备</td>
+<td>非 AI 主线，但代表“把复杂端侧开发降门槛”。</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>Shadow</td>
+<td style="text-align: right;">174 / 16</td>
+<td>AI computer screen + voice control + custom automation</td>
+<td>desktop automation 继续出现；关键在权限、可撤销、日志。</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>Searchad.ai</td>
+<td style="text-align: right;">138 / 8</td>
+<td>用聊天方式跑 Apple Search Ads</td>
+<td>Chat-for-ops 继续扩散，但投放场景必须有预算/效果/归因可见。</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>M1 by Montage</td>
+<td style="text-align: right;">127 / 11</td>
+<td>Agentic UI that scales on demand</td>
+<td>“agentic UI” 进入 UI 层；要看它如何处理状态和人工接管。</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td>Polarity</td>
+<td style="text-align: right;">103 / 6</td>
+<td>Self-Improvement Stack for agents</td>
+<td>agent 自我改进栈，方向有趣但容易玄学化，需要看 eval 和回滚。</td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td>Triggered Agents by Adaptive</td>
+<td style="text-align: right;">101 / 3</td>
+<td>business events 自动触发 AI agents</td>
+<td>这是今天 PH 最实际的一条：agent 不一定聊天触发，可能由业务事件触发。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="producthunt">ProductHunt 今日读法</h3>
+<p>今天 PH 是典型的“agent 化运营工具日”：</p>
+<ul>
+<li>LobeHub：多 agent work 的 operator；</li>
+<li>Shadow：屏幕 + 声音控制；</li>
+<li>Searchad.ai：广告投放聊天化；</li>
+<li>M1：agentic UI；</li>
+<li>Triggered Agents：业务事件触发 agent；</li>
+<li>SocLeads：增长线索自动抓取。</li>
+</ul>
+<p>这里不用硬凑成一个大趋势，但可以看到一个共同风险：<strong>越接近真实业务动作，越不能只给 chat UI。</strong>广告、增长、CRM、桌面控制、业务事件触发，都需要预算上限、权限、审计、失败通知、人类审批。</p>
+<h3 id="_5">【判断】</h3>
+<p>“Chat with your data / chat with your ads / chat with your CRM” 这类产品会越来越多，但用户很快会厌倦“只是把按钮换成聊天”。Reddit ProductManagement 今天的热帖也正好在骂这个：<code>Chat with your data is the laziest UX trend of the decade</code>。真正的机会是把 intelligence 包进任务流：何时触发、怎么确认、如何复盘、失败怎么办。</p>
+<hr />
+<h2 id="github-trending-2026-05-19">GitHub Trending 今日（2026-05-19 实时）</h2>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th style="text-align: right;">Stars today</th>
+<th>一句话</th>
+<th>为什么值得看</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/tinyhumansai/openhuman">tinyhumansai/openhuman</a></td>
+<td style="text-align: right;">3,941</td>
+<td>private personal AI super intelligence</td>
+<td>连续多日 #1；personal/private AI 叙事仍在吸星。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Imbad0202/academic-research-skills">Imbad0202/academic-research-skills</a></td>
+<td style="text-align: right;">1,439</td>
+<td>Claude Code research → write → review → revise → finalize</td>
+<td>skills 从 coding 扩展到 academic research workflow。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/HKUDS/CLI-Anything">HKUDS/CLI-Anything</a></td>
+<td style="text-align: right;">1,049</td>
+<td>making all software agent-native</td>
+<td>agent-native software 叙事继续强。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/K-Dense-AI/scientific-agent-skills">K-Dense-AI/scientific-agent-skills</a></td>
+<td style="text-align: right;">609</td>
+<td>research / science / finance / writing skills</td>
+<td>domain skill packs 继续扩散。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/supertone-inc/supertonic">supertone-inc/supertonic</a></td>
+<td style="text-align: right;">715</td>
+<td>on-device multilingual TTS via ONNX</td>
+<td>本地端侧语音组件，对 personal AI / ambient interface 有意义。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/CloakHQ/CloakBrowser">CloakHQ/CloakBrowser</a></td>
+<td style="text-align: right;">1,420</td>
+<td>stealth Chromium / Playwright replacement</td>
+<td>browser automation 的 bot detection 对抗继续升温。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/tech-leads-club/agent-skills">tech-leads-club/agent-skills</a></td>
+<td style="text-align: right;">1,244</td>
+<td>secure validated skill registry</td>
+<td>skill registry 开始强调 secure / validated。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/humanlayer/12-factor-agents">humanlayer/12-factor-agents</a></td>
+<td style="text-align: right;">399</td>
+<td>production-grade LLM software principles</td>
+<td>agent 工程方法论沉淀，值得跟。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/microsoft/ai-agents-for-beginners">microsoft/ai-agents-for-beginners</a></td>
+<td style="text-align: right;">1,012</td>
+<td>12 lessons to build AI agents</td>
+<td>agent 教程大众化。</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ZhuLinsen/daily_stock_analysis">ZhuLinsen/daily_stock_analysis</a></td>
+<td style="text-align: right;">310</td>
+<td>LLM 驱动 A/H/美股分析 + 推送</td>
+<td>中文/金融/LLM 自动分析信号，和 Fere AI 形成对照。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="github">GitHub 今日读法</h3>
+<p>GitHub 今天比昨天更明确地偏向 <strong>skills / agent engineering / personal AI / browser automation</strong>。这不是假主线，而是 GitHub 单源内部的强信号：开源社区正在把 agent 的“可复用工作方式”打包成 skill、registry、tutorial、12-factor 方法论。</p>
+<p><strong>【判断】</strong> 这对 Hermes / Margin 都有直接意义：skill 不是“提示词文件”，而是可复用工作资产。未来好的 skill 应该像软件包一样有版本、依赖、测试、失败样例、质量门。我们这两天对 dev-digest skill 的修订，本身就是这个趋势的一个小样本。</p>
+<hr />
+<h2 id="reddit-24h">Reddit 当前 24h 热议</h2>
+<h3 id="rclaudeai">r/ClaudeAI</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">热度</th>
+<th>主题</th>
+<th>信号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">850p / 87c</td>
+<td>11 Claude things I wish someone had told me 12 months ago</td>
+<td>Claude 使用已经进入经验沉淀期，不只是 prompt tips，而是长期工作方式。</td>
+</tr>
+<tr>
+<td style="text-align: right;">755p / 80c</td>
+<td>Cowork removed my contact data from all major providers</td>
+<td>隐私/数据删除需求强，和 personal AI 信任相关。</td>
+</tr>
+<tr>
+<td style="text-align: right;">255p / 60c</td>
+<td>Claude Code certification recommended to vibe coders</td>
+<td>vibe coding 正在教育/认证化。</td>
+</tr>
+<tr>
+<td style="text-align: right;">211p / 65c</td>
+<td>Backend dev for 11 years: honest question about Claude Code days</td>
+<td>资深工程师开始重新评估 AI coding 对职业日常的改变。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rlocalllama">r/LocalLLaMA</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">热度</th>
+<th>主题</th>
+<th>信号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">857p / 187c</td>
+<td>Qwen can't wait to release 3.7 models</td>
+<td>Qwen 节奏继续是本地/开源社区焦点。</td>
+</tr>
+<tr>
+<td style="text-align: right;">658p / 326c</td>
+<td>4B coding agent gets 87% on benchmarks</td>
+<td>小模型 + harness 的上限被重新讨论；关键可能不是参数量，而是任务架构。</td>
+</tr>
+<tr>
+<td style="text-align: right;">589p / 222c</td>
+<td>Qwen 3.7 dropped on Qwen Chat</td>
+<td>中文/开源模型节奏继续快。</td>
+</tr>
+<tr>
+<td style="text-align: right;">225p / 109c</td>
+<td>Tested 42 LLMs on willingness to build the apocalypse</td>
+<td>安全测试社区化，模型拒绝/服从边界继续被玩坏和测量。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rmachinelearning-obsidianmd-productmanagement">r/MachineLearning / ObsidianMD / ProductManagement</h3>
+<ul>
+<li>r/MachineLearning：<a href="https://reddit.com/">Reviving PapersWithCode by Hugging Face</a>（241p / 18c）——如果属实，这是研究基准/代码索引生态的重要修复；和你关心 benchmark 直接相关。</li>
+<li>r/ObsidianMD：Notebook Navigator 3.0（401p / 29c）——手动排序、字数目标、自定义 group header，说明 PKM 用户仍然要“自己组织秩序”，不是全交给 AI。</li>
+<li>r/ProductManagement：<code>Chat with your data is the laziest UX trend of the decade</code>（162p / 86c）——产品经理社区开始反感“把 chat 当万能 UX”。这条和 PH 的 Searchad.ai / LobeHub / M1 很值得放在一起看。</li>
+</ul>
+<h3 id="reddit">Reddit 今日共识</h3>
+<ul>
+<li>Claude / Claude Code 已经进入“经验体系化”阶段：认证、长期使用经验、资深工程师反思都出现了。</li>
+<li>本地模型社区关注点从“能跑大模型”转向“小模型 + harness 是否能完成任务”。</li>
+<li>产品社区对 chat-first UX 开始反弹：不是所有智能都应该表现成聊天框。</li>
+</ul>
+<hr />
+<h2 id="_6">追踪产品更新</h2>
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>今日状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Personal AI / private AI</td>
+<td>继续增强</td>
+<td>OpenHuman 连续多日 GitHub #1，说明 private personal AI 叙事仍在外溢。</td>
+</tr>
+<tr>
+<td>Agent skills / skill registry</td>
+<td>明显增强</td>
+<td>academic-research-skills、scientific-agent-skills、agent-skills、12-factor-agents 同时上榜。</td>
+</tr>
+<tr>
+<td>Browser / desktop automation</td>
+<td>增强但风险上升</td>
+<td>Shadow、CloakBrowser、CLI-Anything 都在扩 agent 的操作边界；bot detection / 权限风险同步上升。</td>
+</tr>
+<tr>
+<td>AI coding education</td>
+<td>增强</td>
+<td>Claude Code certification、microsoft ai-agents-for-beginners、12-factor-agents 出现，vibe coding 正在被结构化。</td>
+</tr>
+<tr>
+<td>Chat-first UX</td>
+<td>反弹</td>
+<td>ProductManagement 明确批评 chat with data，说明“聊天入口”已经不再天然加分。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="active-questions">Active Questions 雷达</h2>
+<table>
+<thead>
+<tr>
+<th>AQ</th>
+<th>今日相关信号</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent PM 怎么评测 agent？</td>
+<td>4B coding agent 87%、coding harness introspection、12-factor-agents</td>
+<td>评测重点要从模型转向 harness：任务定义、工具权限、状态记录、测试反馈。</td>
+</tr>
+<tr>
+<td>一人公司 + AI 虚拟同事</td>
+<td>LobeHub、Triggered Agents、Claude 使用经验帖</td>
+<td>虚拟同事要像运营系统：触发、状态、复盘、权限，不是一个全天候聊天对象。</td>
+</tr>
+<tr>
+<td>AI 产品 activation / 留存</td>
+<td>Claude 12个月经验、Claude Code certification、OpenHuman 连续吸星</td>
+<td>留存来自工作方式沉淀；用户愿意学习和认证，说明工具已经进入职业身份层。</td>
+</tr>
+<tr>
+<td>AI PKM / knowledge management</td>
+<td>Obsidian Notebook Navigator、PapersWithCode revival、AnySearch 批注</td>
+<td>用户不是只要 AI 总结，而是要更好的组织、检索和基准化知识索引。</td>
+</tr>
+<tr>
+<td>MCP / agent-native software</td>
+<td>CLI-Anything、ASMTP、AgentCRM、Triggered Agents</td>
+<td>软件正在被包装成 agent-native 接口，但需要避免“所有东西都 chat 化”。</td>
+</tr>
+<tr>
+<td>AI 增长实践</td>
+<td>SocLeads、Searchad.ai、LandingHero AI</td>
+<td>AI 增长工具会继续出现，但最容易滑向 spam；需要观察合规和质量边界。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_7">今日共识 / 非共识</h2>
+<p><strong>共识</strong></p>
+<ul>
+<li>Agent 工程正在变成一套可学习、可认证、可打包的工作方法：skills、harness、12-factor、certification 都在出现。</li>
+<li>AI 参与公共协作会制造新型 spam，开源社区已经开始自建门禁。</li>
+<li>Chat-first UX 的红利在下降，用户开始要求智能嵌进任务结构，而不是所有东西都变成聊天。</li>
+</ul>
+<p><strong>非共识</strong></p>
+<ul>
+<li>小模型 + harness 是否真的能替代大模型 coding agent？Reddit 的 4B coding agent 讨论值得追踪，但要看 benchmark 是否真实可复现。</li>
+<li>OpenHuman 这类 private personal AI 是真实需求爆发，还是 GitHub “personal AI super intelligence” 叙事吸星？需要看实际使用案例。</li>
+<li>Skills registry 应该开放共享还是私有化？公开 skill 有复用价值，但真正贴近用户的 skill 往往包含私人工作方式。</li>
+</ul>
+<hr />
+<h2 id="_8">不容错过</h2>
+<ol>
+<li>
+<p><strong>AI bot spam PR 防护</strong><br />
+   这是今天最具体的 agent 外部性案例。AI 不只提高个人效率，也会把公共协作空间变脏。</p>
+</li>
+<li>
+<p><strong>academic-research-skills / scientific-agent-skills / agent-skills / 12-factor-agents</strong><br />
+   GitHub 今天说明 skills 正在快速从 coding 扩散到 research / science / production agent 工程。值得后续把 Hermes dev-digest skill 也做成“带质量门和失败样例”的版本。</p>
+</li>
+<li>
+<p><strong>ProductManagement: Chat with your data is lazy UX</strong><br />
+   这条和今天 PH 一堆 chat/agentic UI 工具形成对照：智能产品不能只把自然语言输入贴到旧流程上。</p>
+</li>
+<li>
+<p><strong>4B coding agent gets 87% on benchmarks</strong><br />
+   如果可复现，它说明 harness 设计可能比模型大小更重要。和你一直在想的 memory benchmark 是同一类问题。</p>
+</li>
+<li>
+<p><strong>AnySearch 批注引出的“日报信息源”问题</strong><br />
+   你今天问“我们是不是只逛 GitHub Trending？其他几个也跟踪起来，有日报吗，有 API 吗？”这是对日报系统本身的好反馈：未来可以新增一类“中文/独立产品发现源雷达”，但不能盲目加源，要先验证信号质量。</p>
+</li>
+</ol>
+<hr />
+<h2 id="builder-takeaways">Builder Takeaways</h2>
+<ol>
+<li>
+<p><strong>AI 产品不要默认 chat-first。</strong> Chat 是入口，不是产品形态。真正的智能应该体现在触发、组织、判断、复盘、权限和状态流转。</p>
+</li>
+<li>
+<p><strong>Agent 的外部性要纳入产品设计。</strong> 如果 agent 会去 GitHub、邮件、社交平台、CRM 里行动，就必须设计 anti-spam / rate limit / human approval / identity transparency。</p>
+</li>
+<li>
+<p><strong>Skill 是工作方式资产，不只是 prompt。</strong> 今天 GitHub 的 skills 爆发说明，未来个人/团队会积累自己的操作系统。Hermes 的日报 skill 应继续合并质量样例、失败样例、source checklist 和用户偏好。</p>
+</li>
+<li>
+<p><strong>小模型 + harness 是 memory benchmark 的参考方向。</strong> 不要只问“模型记住了吗”，要问“在任务 harness 下，模型 + 记忆模块是否减少重复、减少错误、提高用户满意度”。</p>
+</li>
+</ol>
+<h2 id="_9">一句话总结</h2>
+<p>2026-05-19 的信号分散但很清楚：AI agent 正在从“会做事”进入“如何不制造噪音、如何被组织成工作系统、如何通过 skills/harness 被评测和复用”的阶段；同时，chat-first UX 和无边界自动化都开始遇到反弹。</p>
+<hr />
+<p>生成时间：2026-05-19<br />
+数据核验：HN 2026-05-18 UTC + 2026-05-19 早间实时；ProductHunt 2026-05-18 API；GitHub Trending 2026-05-19 浏览器实时抓取；Reddit 当前 24h；Notion / AQ 本地上下文。</p></body></html>
