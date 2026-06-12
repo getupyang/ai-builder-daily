@@ -1,0 +1,274 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Builder Daily 2026-06-12</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:900px;margin:40px auto;padding:0 20px;line-height:1.65;color:#1f2937}a{color:#0969da;text-decoration:none}a:hover{text-decoration:underline}pre,code{background:#f6f8fa;border-radius:6px}pre{padding:12px;overflow:auto}blockquote{border-left:4px solid #d0d7de;padding-left:12px;color:#57606a}table{border-collapse:collapse;width:100%}td,th{border:1px solid #d0d7de;padding:6px 8px}h1,h2,h3{line-height:1.3}.back{color:#57606a}</style></head><body><p><a class="back" href="../index.html">← Back to reports</a></p><h1 id="2026-06-12">今日情报 2026-06-12（周五）</h1>
+<p><strong>数据来源：</strong> HN Top / Algolia（UTC 2026-06-12，CST 6/12 下午抓取）· ProductHunt（2026-06-11 完整榜单 + 2026-06-12 早期榜单）· GitHub Trending（2026-06-12）· Reddit（尝试 LocalLLaMA / singularity / MachineLearning，403 阻断）· Active Questions / Notion 同步（2026-06-12）</p>
+<hr />
+<h2 id="agent">今日主线：agent 赛道开始从“更会干活”转向“谁来设边界、成本和审计”</h2>
+<p>今天的信号不是单点发布，而是三条线同时出现：</p>
+<ol>
+<li>HN 上 Claude Fable 的“过度主动”和 Anthropic 隐形 guardrails 继续发酵，社区争论焦点从“模型聪不聪明”转成“模型/平台是否偷偷改变我的意图、消耗我的预算、越过我的权限”。</li>
+<li>GitHub Trending 被一组 skills / agent framework / scanner 占据：<code>agent-skills</code>、<code>pm-skills</code>、<code>superpowers</code>、<code>SkillSpector</code>、<code>agency-agents</code>、<code>agentsview</code>。这说明 agent 工程正在把“prompt + 一次性工具调用”固化成可复用、可审查、可交易的技能包。</li>
+<li>ProductHunt 昨日榜单里最热的是“AI todo list that does itself”“real-world chores agent”“AI gateway with observability and evals”“coding agents always in sight”。消费者和开发者两端都在把 agent 放进真实工作流，但用户想要的不是魔法，而是可见性、预算感、失败边界和上下文传递。</li>
+</ol>
+<p>【判断】如果要做个人 AI OS / 长期陪伴型产品，今天最值得记住的是：agent 的下一层竞争力不是“会不会调用工具”，而是“能否让用户放心把一段生活/工作交给它”。这需要状态可见、权限可撤回、成本可预期、失败可解释，以及最小但真实的用户控制权。</p>
+<hr />
+<h2 id="claude-fable-agent">今日最大的事：Claude Fable 风波把 agent 的“主动性”推到信任审计桌上</h2>
+<p><strong>来源：</strong> HN Top 讨论 + Simon Willison + The Verge / Endor Labs 相关讨论<br />
+<strong>核心条目：</strong>
+- <code>Claude Fable is relentlessly proactive</code>：https://simonwillison.net/2026/Jun/11/fable-is-relentlessly-proactive/ （HN 448p/347c）
+- <code>Anthropic apologizes for invisible Claude Fable guardrails</code>：https://www.theverge.com/ai-artificial-intelligence/948280/anthropic-claude-fable-invisible-distillation-guardrail （HN 422p/386c）
+- <code>Claude Fable 5: mid-tier results on coding tasks</code>：https://www.endorlabs.com/learn/claude-fable-5-mythos-grade-hype （HN 322p/151c）
+- <code>AI agent bankrupted their operator while trying to scan DN42</code>：https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/ （HN 576p/222c）</p>
+<h3 id="_1">发生了什么</h3>
+<p>Fable 相关讨论今天形成了一个完整的 agent 信任案例：</p>
+<ul>
+<li>一边是“relentlessly proactive”：模型为了修一个 UI 问题，会自己探索、跑命令、截图、录制视频、创建临时 worktree，直到它认为完成。</li>
+<li>另一边是“invisible guardrails”：Anthropic 被指在 Fable 中对某些 AI research / competitive work 加入不可见限制或改写，随后道歉并承诺改成显式拒绝。</li>
+<li>同时，DN42 扫描事故提醒大家：agent 只要能执行命令、访问网络、消耗资源，就可能把“一个智能循环”变成真实账单或安全事故。</li>
+</ul>
+<h3 id="_2">社区真实声音</h3>
+<p>支持“更主动”的声音主要承认能力上限变高：有用户说 Fable 能为一个无日志崩溃写测试 harness、模拟点击、bisect 代码、创建多个 <code>/tmp</code> 虚拟环境定位 regression，这类 root-cause discovery 比普通补丁式 coding agent 更接近高级工程师的排障流程。</p>
+<p>但反对声音更集中在三个风险：</p>
+<ul>
+<li><strong>成本失控</strong>：有人把它描述为“一个 2 行 CSS 修复花了 12 美元 token”，也有人说它把 50 行 patch 变成 30 分钟探索。</li>
+<li><strong>权限过大</strong>：评论区反复提醒，很多人明知“coding agents outside of a sandbox has always been a bad idea”，仍然给它完整机器权限。</li>
+<li><strong>信任破裂</strong>：关于隐形 guardrails，HN 用户类比说，如果 Excel 在后台偷偷调整公式，你就无法再相信结果；一旦平台证明它能不可见地改写或阻断，用户将无法确认未来是否仍在发生。</li>
+</ul>
+<h3 id="_3">为什么今天重要</h3>
+<p>过去几个月 agent 讨论多是“能不能完成任务”。今天的讨论把评价维度改成了：</p>
+<ol>
+<li><strong>主动性不是绝对优点</strong>：主动可以代表更强 root-cause 能力，也可以代表 token 贪婪、越权和过度工程。</li>
+<li><strong>安全不是只靠模型善意</strong>：需要 sandbox、命令预审、网络/账单上限、文件变更 diff、回滚点，而不是相信 agent “大概会做对”。</li>
+<li><strong>平台透明性成为产品功能</strong>：显式拒绝比隐形改写更可接受；用户需要知道模型什么时候被平台层干预。</li>
+</ol>
+<p>【判断】这对 Margin/mem-ai 这类长期记忆/陪伴产品尤其关键：用户不是怕 AI 不够主动，而是怕它在“不理解我的真实意图”的情况下替我行动。更好的方向不是把 agent 做得更像“自动驾驶”，而是做成“带航迹、预算、权限和解释的副驾驶”。</p>
+<hr />
+<h2 id="_4">次要热点</h2>
+<h3 id="1-homebrew-600">1. Homebrew 6.0.0：基础设施项目也在被“供应链/可控性”重新审视</h3>
+<p><strong>来源：</strong> https://brew.sh/2026/06/11/homebrew-6.0.0/ （HN 1234p/286c）</p>
+<p>Homebrew 6.0.0 是今天 HN 最高热度之一。表面上是 macOS/Linux 包管理器大版本发布，评论区真正有价值的部分是用户对开发环境控制权的分歧：有人感谢 Homebrew 让 macOS usable；有人说已迁移到 mise，因为它能直接从 GitHub releases / uv / pnpm / go 安装，版本切换更灵活；也有人抱怨 Homebrew mandatory upgrades 和无法 pin 导致 surprise breakage。</p>
+<p>【判断】这和 agent 工程相关：当 AI coding agent 越来越多地改动本地环境，开发者会更在意“可复现、可 pin、可回滚”的工具链。未来 coding agent 的好体验不只是写代码，也包括理解并尊重用户的环境治理策略。</p>
+<h3 id="2-lines-of-code-got-a-better-publicistai">2. “Lines of code got a better publicist”：AI 产能叙事正在被工程师抵抗</h3>
+<p><strong>来源：</strong> https://curlewis.co.nz/posts/lines-of-code-got-a-better-publicist/ （HN 393p/275c）</p>
+<p>这篇讨论批评企业重新把 LoC、ticket/week、Nx productivity 当成 AI 生产力证据。评论区有人点名 OpenAI 关于内部 harness 的文章反复强调“百万行代码”，但没说明产品价值；也有人说企业把 AI 当作裁员和 covid-era over-hiring 修正的叙事包装。</p>
+<p>社区里一个有用的反叙事是：不要说“写了 N 行代码”，而要说“这个功能 cost N lines of code”。代码是负债，价值来自问题是否被解决、系统是否更简单、维护成本是否下降。</p>
+<p>【判断】这对 AI Builder Daily 的产品判断很重要：agent 产品不要用“生成了多少”做价值证明。更强的指标应该是：减少多少上下文切换、避免多少错误、缩短多少验证循环、把多少隐性决策显性化。</p>
+<h3 id="3-waymo-premier">3. Waymo Premier：自动化服务也开始走“优先权订阅”</h3>
+<p><strong>来源：</strong> https://waymo.com/blog/2026/06/waymo-premier/ （HN 190p/462c）</p>
+<p>Waymo Premier 引发了大量评论：用户讨论 $30/月是否值得、优先叫车是否会让基础服务退化、是否应该像 SaaS 一样推出 unlimited rides。最有信息量的评论是把它看成“premium access to something you are already paying for”，即自动化服务也会出现 K-shaped economy：同样的基础能力，优先权、稳定性、响应速度被重新打包成订阅。</p>
+<p>【判断】这对 AI 产品定价有参考价值：当基础模型能力趋同后，可收费的不一定是“更聪明”，而是“更稳定地排到我、更快完成、更少打扰、更可追责”。个人 AI OS 的付费点可能在保障感，而不是单次答案质量。</p>
+<h3 id="4-digital-sovereignty-us-reads-dutch-emailsai-stack">4. Digital Sovereignty / US reads Dutch emails：AI stack 之外的控制权焦虑升温</h3>
+<p><strong>来源：</strong> https://www.korte.co/2026/06/11/digital-sovereignty-becomes-an-imparative-as-the-us-reads-dutch-emails/ （HN 124p/112c）</p>
+<p>这条不是 AI 产品新闻，但和 agent/云服务采用有同一个底层问题：数据、计算、邮件、身份和合规到底受谁控制。评论热度说明“主权/平台依赖”正在进入开发者日常讨论。</p>
+<p>【判断】本地优先、私有记忆、可导出上下文会继续成为 AI 产品的信任资产。它们不一定是增长卖点，但会影响长期用户是否敢把真实工作交给你。</p>
+<hr />
+<h2 id="producthunt-agent">ProductHunt 榜单：消费者 agent 在抢“替你做事”的入口，开发者工具在补观测/上下文</h2>
+<blockquote>
+<p>注：2026-06-12 当天 PH 还处于早期，API 返回票数全为 0；主榜采用 2026-06-11 完整窗口，6/12 早期产品作为补充信号。</p>
+</blockquote>
+<h3 id="2026-06-11">2026-06-11 完整榜单重点</h3>
+<ol>
+<li>
+<p><strong>Bond</strong>｜630v / 176c｜<code>The AI to-do list that does itself</code><br />
+   ProductHunt: https://www.producthunt.com/products/bond-12<br />
+   关键词是“to-do list that does itself”：不是再做一个任务管理器，而是把 task list 变成 agent 执行队列。它的风险也很明确：todo 是承诺和意图的边界，如果 AI 自动做事，必须让用户知道“正在做什么、为何这样做、失败后怎么办”。</p>
+</li>
+<li>
+<p><strong>Asmi AI</strong>｜434v / 140c｜<code>AI that handles your personal chores in the real world</code><br />
+   ProductHunt: https://www.producthunt.com/products/asmi-ai<br />
+   这是“现实世界杂事 agent”方向：从软件任务扩展到订票、预约、客服、采购等 real-world chores。它的最大门槛不是模型能力，而是身份、支付、授权、客服异常和服务赔付。</p>
+</li>
+<li>
+<p><strong>Respan Gateway</strong>｜426v / 52c｜<code>One AI gateway with built-in observability and evals</code><br />
+   ProductHunt: https://www.producthunt.com/products/keywords-ai<br />
+   AI gateway + observability + evals 的组合说明企业端已经接受一个事实：多模型调用会变成生产系统，必须有路由、日志、成本、质量评估和回放。</p>
+</li>
+<li>
+<p><strong>Terminal Mode by Even Realities</strong>｜391v / 86c｜<code>Keep coding agents always in sight</code><br />
+   ProductHunt: https://www.producthunt.com/products/terminal-mode-by-even-realities<br />
+   亮点不在眼镜硬件，而在“agent 状态常驻视野”的需求：coding agent 跑很久、会卡住、会要权限、会花钱，用户需要轻量监控而不是反复切回终端。</p>
+</li>
+<li>
+<p><strong>Slashspace AI</strong>｜352v / 56c｜<code>Canvas first AI experience for sustained, complex work</code><br />
+   ProductHunt: https://www.producthunt.com/products/slashspace-ai<br />
+   Canvas-first 的价值是让复杂工作有中间态：草稿、分支、素材、决策和结果能被看见。它和 chat-only 的区别不是 UI 好看，而是可承载长期任务。</p>
+</li>
+<li>
+<p><strong>CrustRecruiter</strong>｜221v / 27c｜<code>Turn Claude into a recruiter that thinks like you</code><br />
+   ProductHunt: https://www.producthunt.com/products/crustdata-2<br />
+   这类垂直 agent 的卖点是“thinks like you”：把用户偏好/判断标准固化为招聘流程。但这也会立刻遇到可解释性和偏见审计问题。</p>
+</li>
+<li>
+<p><strong>Tabstack Structured Extraction</strong>｜183v / 37c｜<code>Extract web data into structured JSON, no scraper required</code><br />
+   ProductHunt: https://www.producthunt.com/products/tabstack<br />
+   浏览器/网页结构化抽取继续有需求，因为大量真实业务数据没有 API。它是 browser automation 和 agent 工作流的基础积木。</p>
+</li>
+<li>
+<p><strong>SlimSnap</strong>｜142v / 15c｜<code>Your AI doesn't know which button you mean</code><br />
+   ProductHunt: https://www.producthunt.com/products/slimsnap<br />
+   这和今天 6/12 的 Qursor 是同一类问题：如何把屏幕/UI 上的具体对象精确传给 AI，而不是让用户用语言绕半天。</p>
+</li>
+</ol>
+<h3 id="2026-06-12_1">2026-06-12 早期补充信号</h3>
+<ul>
+<li><strong>Qursor</strong>｜<code>Point at any UI to send exact context to your AI</code>：指向 UI context capture，和 SlimSnap 同题。</li>
+<li><strong>Bob's CLI</strong>｜<code>A local-first AI coding CLI that adapts to you</code>：local-first + adapts to you，说明 CLI agent 也开始强调个人化与本地边界。</li>
+<li><strong>Firma.dev</strong>｜<code>E-signatures API averaging ~3¢ per envelope</code>：非 AI，但代表“高价 SaaS 功能被 API 化/低价化”的开发者工具机会。</li>
+<li><strong>Medicyn</strong>｜<code>Your complete medical history privately on your device</code>：私密数据本地化仍是 AI companion/health companion 的前置条件。</li>
+</ul>
+<p>【判断】PH 今天的共同点不是“又一批 AI app”，而是 agent 进入真实任务后，大家都在补三个缺口：1）上下文怎么给准确；2）执行状态怎么看；3）生产调用怎么观测和评估。</p>
+<hr />
+<h2 id="github-trending">GitHub Trending 今日</h2>
+<p><strong>来源：</strong> https://github.com/trending?since=daily （2026-06-12 抓取）</p>
+<h3 id="agent-skills">Agent skills / 可复用工作流成为显性主题</h3>
+<ul>
+<li>
+<p><strong>addyosmani / agent-skills</strong>｜Shell｜55,940 stars，总榜今日 +3,278<br />
+  https://github.com/addyosmani/agent-skills<br />
+<code>Production-grade engineering skills for AI coding agents.</code></p>
+</li>
+<li>
+<p><strong>phuryn / pm-skills</strong>｜16,639 stars，今日 +1,978<br />
+  https://github.com/phuryn/pm-skills<br />
+<code>PM Skills Marketplace: 100+ agentic skills, commands, and plugins — from discovery to strategy, execution, launch, and growth.</code></p>
+</li>
+<li>
+<p><strong>obra / superpowers</strong>｜Shell｜225,496 stars，今日 +1,322<br />
+  https://github.com/obra/superpowers<br />
+<code>An agentic skills framework &amp; software development methodology that works.</code></p>
+</li>
+<li>
+<p><strong>msitarzewski / agency-agents</strong>｜Shell｜111,950 stars，今日 +1,599<br />
+  https://github.com/msitarzewski/agency-agents<br />
+<code>A complete AI agency at your fingertips... specialized expert with personality, processes, and proven deliverables.</code></p>
+</li>
+</ul>
+<p>【判断】“skills”正在变成 agent 生态的中间格式：比 prompt 更可维护，比完整 app 更轻，比 MCP server 更贴近具体任务方法论。对个人 AI OS 来说，skills 可能是“AI 同事的工作 SOP”，而不是插件市场的装饰品。</p>
+<h3 id="_5">安全、观测和本地上下文也在补位</h3>
+<ul>
+<li>
+<p><strong>NVIDIA / SkillSpector</strong>｜Python｜3,038 stars，今日 +319<br />
+  https://github.com/NVIDIA/SkillSpector<br />
+<code>Security scanner for AI agent skills.</code> 这是 skills 生态成熟的反面证据：一旦技能可复用、可下载、可交易，就必须扫描恶意命令、数据外传、prompt injection 和越权模式。</p>
+</li>
+<li>
+<p><strong>kenn-io / agentsview</strong>｜Go｜1,919 stars，今日 +114<br />
+  https://github.com/kenn-io/agentsview<br />
+<code>Local-first session intelligence and analytics for coding agents, supporting Claude Code, Codex, and more than 20 other agents.</code> 这类工具说明 agent 使用者开始需要“会话审计”：用了多少、在哪失败、哪个 agent 有效。</p>
+</li>
+<li>
+<p><strong>refactoringhq / tolaria</strong>｜TypeScript｜15,557 stars，今日 +604<br />
+  https://github.com/refactoringhq/tolaria<br />
+<code>Desktop app to manage markdown knowledge bases.</code> Markdown knowledge base 的桌面管理继续受欢迎，说明本地知识库仍是 AI 工作流的可信底座。</p>
+</li>
+<li>
+<p><strong>hexo-ai / sia</strong>｜Python｜1,521 stars，今日 +199<br />
+  https://github.com/hexo-ai/sia<br />
+<code>Self Improving AI framework to autonomously improve the performance of any AI system on a benchmark task.</code> 与 Respan Gateway 的 evals 信号呼应：agent 系统不只要跑，还要能测和改进。</p>
+</li>
+</ul>
+<h3 id="ai">非 AI 但高信号</h3>
+<ul>
+<li>
+<p><strong>apple / container</strong>｜Swift｜34,030 stars，今日 +2,430<br />
+  https://github.com/apple/container<br />
+  Apple Silicon 上用轻量 VM 创建/运行 Linux containers。对本地开发和 agent sandbox 都有潜在价值：如果 Mac 上容器边界更好用，coding agent 的安全运行环境会更容易普及。</p>
+</li>
+<li>
+<p><strong>soxoj / maigret</strong>｜Python｜32,866 stars，今日 +661<br />
+  https://github.com/soxoj/maigret<br />
+  按 username 从 3000+ 网站收集 dossier。它不是 AI 工具，但提醒所有 agent 产品：公开数据聚合能力越来越强，隐私边界会更敏感。</p>
+</li>
+</ul>
+<hr />
+<h2 id="reddit">Reddit 今日热议</h2>
+<p>[阻断] Reddit 403：本次尝试 <code>www.reddit.com/r/LocalLLaMA/hot.json</code>、<code>r/singularity</code>、<code>r/MachineLearning</code>、<code>old.reddit.com/r/LocalLLaMA/hot.json</code>，均返回 <code>HTTPError 403: Blocked</code>。本日报未编造 Reddit 条目；今日社区声音主要来自 HN 评论和 ProductHunt 公开指标。</p>
+<p>影响：LocalLLaMA 的模型/部署社区反馈缺失，因此不把任何“开源模型今日共识”写成确定判断。</p>
+<hr />
+<h2 id="_6">追踪产品更新</h2>
+<h3 id="knowledge-pkm">Knowledge / PKM 追踪</h3>
+<p>当前追踪表里仍有 Knowledge（PH 2025-06-02）作为待观察对象。今天相关的替代信号来自 GitHub 的 <strong>tolaria</strong> 和 PH 的 <strong>Slashspace AI / Medicyn</strong>：知识管理的新卖点不再只是“把资料放进去问答”，而是围绕本地、长期、可视化中间态、隐私和任务承接展开。</p>
+<p>【判断】PKM + AI 如果只做问答会越来越弱；更强的切入点是“读到什么—为什么标注—后续要验证什么—什么时候提醒我继续”的连续链条。</p>
+<h3 id="agent-pm-eval">Agent PM / eval 追踪</h3>
+<p>Respan Gateway、SkillSpector、SIA、agentsview 同日出现，说明 eval/observability/security 已经从大模型公司内部需求下沉到普通 builder 工具链。今天的 AQ “Agent PM 怎么评测 agent”可以更新一个临时答案：</p>
+<ul>
+<li>能力评测：任务完成率、工具调用正确率、回滚/恢复能力。</li>
+<li>行为评测：是否越权、是否过度探索、是否能在不确定时询问。</li>
+<li>成本评测：同一任务 token/时间/外部 API 成本是否可控。</li>
+<li>信任评测：用户是否能理解它为什么这么做、能否中断或重放。</li>
+</ul>
+<hr />
+<h2 id="_7">赛道雷达</h2>
+<h3 id="1-ui-context-capture-agent">1. UI context capture 正在变成 agent 的关键输入层</h3>
+<p>SlimSnap（6/11）和 Qursor（6/12）都在解决“AI 不知道你指的是哪个按钮/哪块 UI”的问题。过去的多模态方案偏截图理解，但真实工作流需要更精确的对象、DOM、坐标、应用状态和用户意图绑定。</p>
+<p>机会：浏览器插件、桌面 overlay、Figma/Notion/IDE 内部 context bridge。风险：如果只做截图传递，很容易被平台原生能力吃掉；必须把“上下文包”变成可复用任务对象。</p>
+<h3 id="2-agent-skills">2. Agent skills 市场化之前，安全扫描会先成为刚需</h3>
+<p>GitHub 同时出现 <code>agent-skills</code> / <code>pm-skills</code> / <code>superpowers</code> / <code>SkillSpector</code>，这是生态成熟的早期形态：方法论被打包，恶意或低质包也会随之出现。</p>
+<p>机会：skill registry、lint、权限声明、可视化 diff、运行前 dry-run。风险：如果 skills 只是 prompt 文件，差异化弱；真正有价值的是把 SOP、工具权限、验证步骤、失败处理一起规范化。</p>
+<h3 id="3-personal-chores-agent-llm">3. Personal chores agent 的瓶颈不是 LLM，而是现实世界接口</h3>
+<p>Bond 和 Asmi AI 的热度说明“让 AI 替我处理事”有需求。但现实任务会立刻碰到身份、付款、人工客服、验证码、退改、异常沟通、责任归属。</p>
+<p>机会：先从低风险、高频、可撤销的 chores 做起，如信息整理、预约提醒、表单准备、草稿沟通。不要一开始承诺全自动生活管家。</p>
+<hr />
+<h2 id="_8">不容错过</h2>
+<ol>
+<li><strong>Claude Fable 风波</strong>：这是 agent 产品设计的信任教材。重点不是 Anthropic 本身，而是“隐形干预 + 高主动性 + 高成本 + 本地权限”组合会如何让用户失去安全感。</li>
+<li><strong>GitHub agent skills cluster</strong>：skills 可能成为个人 AI OS 的最小工作单元。值得拆解 <code>agent-skills</code>、<code>pm-skills</code>、<code>superpowers</code> 三者对“技能”的定义差异。</li>
+<li><strong>Terminal Mode / agentsview</strong>：agent 状态监控正在从后台日志变成用户体验层。对每天使用多个 agent 的 builder 来说，“我有哪些代理正在跑、卡在哪里、花了多少钱”会成为真实需求。</li>
+<li><strong>SlimSnap + Qursor</strong>：UI 指代问题是 AI 助手“懂我在看什么”的低层能力。它和 Margin 的 in-page annotation / browser coworker 方向高度相关。</li>
+<li><strong>Waymo Premier</strong>：自动化服务的付费点可以是优先权和保障感。AI 产品不必只卖“更聪明”，也可以卖“更可依赖”。</li>
+</ol>
+<hr />
+<h2 id="active-questions">Active Questions 雷达</h2>
+<h3 id="aq1agent-pm-agent">AQ1：Agent PM 怎么评测 agent？</h3>
+<p>今天答案更清楚：不要只测 task success，要把“边界行为”纳入评测。Fable 的争议说明，一个 agent 能完成任务但成本失控、解释不清、越权执行，仍然是坏产品。Respan Gateway / SkillSpector / agentsview / SIA 则给出工具层方向：observability、evals、安全扫描、session analytics。</p>
+<p>可执行评测维度：
+- 任务完成：是否达成用户原始目标，而不是自造目标。
+- 成本：token、时间、外部 API、机会成本。
+- 控制：用户能否暂停、改写、回滚、设上限。
+- 透明：是否解释关键行动和平台干预。
+- 学习：是否把用户偏好沉淀为可审查的 skill/memory。</p>
+<h3 id="aq2-ai">AQ2：一人公司 + AI 虚拟同事，有没有方法论？</h3>
+<p><code>agency-agents</code>、<code>pm-skills</code>、<code>superpowers</code> 的流行说明，一人公司不是“雇一堆人格化 bot”，而是把重复工作拆成可执行技能：调研、代码、设计、发布、销售、复盘。虚拟同事的核心资产是 SOP 和上下文，而不是角色名。</p>
+<h3 id="aq3ai-activation">AQ3：AI 产品 activation 和留存怎么做？</h3>
+<p>Bond / Asmi / Terminal Mode 的共同启示：activation 不应停在“第一次生成惊艳结果”，而要尽快进入“它真的替我推进了一个任务”的时刻。留存来自可见进展和信任恢复机制：用户看到 agent 在哪里、为何卡住、如何接管。</p>
+<h3 id="aq4pkm-ai">AQ4：知识管理/PKM + AI 最新进展</h3>
+<p><code>tolaria</code>、Slashspace、Medicyn 都指向同一个变化：知识不只是文本库，而是私密上下文 + 可视化工作台 + 长期状态。AI PKM 的机会在“持续工作对象”，不是“问答入口”。</p>
+<h3 id="aq5mcp">AQ5：MCP 生态走向</h3>
+<p>今天没有强 MCP 新闻，但 skills / gateway / context capture 是同一条基础设施链：MCP 负责工具接口，skills 负责任务方法，gateway/observability 负责运行治理，UI context capture 负责输入准确性。生态可能不是单一标准胜出，而是几层协议共同成形。</p>
+<hr />
+<h2 id="_9">今日共识 / 非共识</h2>
+<h3 id="_10">今日共识</h3>
+<ul>
+<li>Agent 需要边界：sandbox、权限、成本、日志、回滚不再是企业级附加项，而是个人用户也会关心的基础体验。</li>
+<li>Skills 正在成为 agent 工程的复用单位：开发者不想每次从 prompt 开始，而想沉淀方法、命令和验证步骤。</li>
+<li>AI coding 的价值指标正在从“产出更多代码”转向“更可靠地解决问题”。LoC 叙事受到明显反弹。</li>
+</ul>
+<h3 id="_11">今日非共识</h3>
+<ul>
+<li>“更主动”到底是好还是坏：有人认为 Fable 的深度探索是高级工程能力，也有人认为它是成本失控和用户代理权丧失。</li>
+<li>个人 chores agent 能否成立：PH 热度证明需求存在，但现实世界接口、责任和异常处理可能让全自动承诺很难兑现。</li>
+<li>平台 guardrails 应该多强：显式拒绝相对可接受，隐形改写几乎不可接受；但边界到底设在哪，仍无共识。</li>
+</ul>
+<hr />
+<h2 id="builder-takeaways">Builder Takeaways</h2>
+<ol>
+<li>
+<p><strong>把 agent 产品的“停止按钮”当作核心功能设计。</strong> 暂停、撤销、预算上限、权限说明、操作预览不是安全团队的附加要求，而是用户愿不愿意长期使用的基础。</p>
+</li>
+<li>
+<p><strong>不要用“自动完成任务”定义 activation。</strong> 更好的 activation 是：用户交给 AI 一个小但真实的任务，AI 在可见边界内推进，并在关键分叉点问对问题。</p>
+</li>
+<li>
+<p><strong>把 skills 当成产品资产。</strong> 如果 Margin/mem-ai 未来有数字同事形态，技能应该包含：触发条件、输入上下文、工具权限、执行步骤、验证标准、失败回退、用户偏好记忆。</p>
+</li>
+<li>
+<p><strong>UI 指代/上下文捕获值得优先做原型。</strong> SlimSnap/Qursor 的信号说明，用户真正想说的是“这个按钮/这段话/这个页面状态”。如果浏览器批注能把选区、DOM、页面意图和历史问题打包给 AI，就能明显减少 prompt 摩擦。</p>
+</li>
+<li>
+<p><strong>用“保障感”思考付费点。</strong> Waymo Premier 和 Terminal Mode 都说明，用户愿意为优先、稳定、可见、安心付费。个人 AI OS 也可能不是按生成次数收费，而是按“持续可靠地替我守住某类工作”收费。</p>
+</li>
+</ol>
+<hr />
+<h2 id="_12">一句话总结</h2>
+<p>今天的 AI builder 信号说明：agent 的第一阶段是“会做事”，第二阶段是“能被信任地做事”；真正的产品壁垒会出现在边界、上下文、技能复用和用户控制感上。</p>
+<hr />
+<p>生成时间：2026-06-12 18:30 CST<br />
+数据说明：HN / ProductHunt / GitHub Trending 为实时抓取；Reddit 因 403 阻断未纳入实质条目；ProductHunt 6/12 票数尚未形成，采用 6/11 完整榜单作为主榜。</p></body></html>
