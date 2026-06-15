@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI+开发者社区日报 · 2026-06-15</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #333;
+            background: #fafafa;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 3px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "SF Mono", Monaco, Inconsolata, "Fira Code", monospace;
+            font-size: 0.9em;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 40px 0;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+        .back-link {
+            margin-bottom: 30px;
+        }
+        .back-link a {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="back-link">
+        <a href="../index.html">← 返回首页</a>
+    </div>
+    <h1>AI+开发者社区日报 · 2026-06-15</h1>
+
+<strong>数据日期：</strong> 2026-06-14（UTC）  
+<strong>报告生成：</strong> 2026-06-15
+
+<hr>
+
+<h2>📌 今日最大的事</h2>
+
+<h3>Show HN: Kage – Shadow any website to a single binary for offline viewing</h3>
+<strong>601p 119c</strong> — 将任意网站离线镜像成单个可执行文件的工具，类似 wget --mirror 但更现代、更完整。<a href="https://github.com/tamnd" target="_blank">原文</a> <a href="https://news.ycombinator.com/item?id=43729142" target="_blank">HN讨论</a>
+
+<strong>核心看点：</strong> 离线访问/归档/备份场景。对于需要长期保存网页内容、构建离线文档系统或进行网站归档的开发者来说，这是一个比传统工具更完整的解决方案。
+
+<hr>
+
+<h2>🚀 ProductHunt 榜单</h2>
+
+<h3>🥇 Sun – 习惯追踪 + 任务管理组合应用（367 votes）</h3>
+<a href="https://www.producthunt.com/products/sun-habit-tracker-todo-task/launches/sun-3" target="_blank">ProductHunt 页面</a>
+
+<strong>是什么：</strong> 土耳其团队 Kami Apps 开发的 iOS/macOS 应用，将习惯追踪（Habit Tracker）和任务管理（Todo Manager）整合在同一界面中，支持 iCloud 同步。
+
+<strong>核心差异化：</strong> 传统习惯追踪应用（如 Streaks）缺乏任务管理；而任务管理工具（如 Todoist）没有原生习惯逻辑。Sun 试图填补这个断层——让用户在同一个应用中既追踪长期习惯，又管理一次性任务。
+
+<strong>用户反馈：</strong> ⚠️ <strong>数据可靠性问题严重</strong>——多个用户报告进度丢失、任务消失。AppRecs 评分仅 2.8/5 星，显示"存在 25% 的评论操控风险"。这是一个生产力工具的致命缺陷。
+
+<strong>定价：</strong> Freemium，年订阅 $29.99（对比 Streaks $5.99 一次性购买）。
+
+<strong>【判断】</strong> 概念有市场（习惯+任务整合），但当前数据同步稳定性问题致命。2人团队的运维能力存疑。<strong>不建议作为主力生产力工具使用。</strong>
+
+<hr>
+
+<h3>🥈 Copy as Markdown – 浏览器 Markdown 剪贴板助手（313 votes）</h3>
+<a href="https://www.producthunt.com/products/copy-as-markdown/launches/copy-as-markdown" target="_blank">ProductHunt 页面</a>
+
+<strong>是什么：</strong> 浏览器扩展，支持 Chrome/Firefox/Edge。通过右键菜单或快捷键，将网页选定文本、链接、图片，或整个标签页列表，以 Markdown 格式复制到剪贴板。
+
+<strong>核心功能：</strong> 复制选定文本为 Markdown（保留粗体、斜体、代码块等格式）、复制链接/图片为 Markdown、导出当前窗口所有标签页为链接列表（支持 GitHub-Flavored Markdown 任务列表）。
+
+<strong>与同类工具差异化：</strong>
+- <strong>vs Reader Mode/简悦</strong>：不自动提取正文，只复制你选中的内容
+- <strong>vs Pocket</strong>：没有存储功能，只生成 Markdown 文本
+- <strong>vs Notion Web Clipper</strong>：通用剪贴板工具，不绑定任何平台
+- <strong>vs MarkDownload/Web2MD</strong>：更轻量，适合快速复制链接、代码片段
+
+<strong>用户反馈：</strong> Chrome Web Store 4.3 星（596 条评价），但两极分化明显。主要痛点：<strong>可靠性问题</strong>（部分网站复制失败、需要多次尝试）、<strong>Chrome 权限警告</strong>引发隐私担忧、<strong>Windows 平台限制</strong>。
+
+<strong>产品生命周期：</strong> ✅ <strong>成熟稳定阶段</strong>——创建于 2012 年，是这一品类历史最悠久的工具之一。GitHub 725 stars，开源 MIT 协议。约 4 万周活跃用户。
+
+<strong>【判断】</strong> 一个"小而美"工具的长尾价值案例：12年历史、4万活跃用户、MIT 开源。证明了"轻量、通用、不绑定平台"在浏览器扩展领域的生命力。但开发者已表示时间有限，可能进入维护模式。AI 时代面临专门的"LLM-optimized"工具竞争挤压。
+
+<hr>
+
+<h3>🥉 VibrantSnap – AI 屏幕录制 + 智能演示视频（294 votes）</h3>
+<a href="https://www.producthunt.com/products/vibrantsnap/launches/vibrantsnap-3" target="_blank">ProductHunt 页面</a>
+
+<strong>是什么：</strong> AI 驱动的屏幕录制和视频制作工具，允许用户录制屏幕内容，同时自动添加会说话的 AI 头像、清理音频、生成字幕，输出 4K 专业级视频。
+
+<strong>核心功能：</strong> 屏幕录制（全屏/窗口/标签页）、AI 头像配音（无需摄像头）、音频智能处理（自动去除填充词）、自动字幕、智能视觉效果、一键分享。
+
+<strong>定位：</strong> 比 Loom 更精致，比 HeyGen 更聚焦产品演示。声称可在"几分钟内"完成专业视频。
+
+<strong>用户反馈：</strong> ⚠️ <strong>严重运营问题暴露</strong>——AppSumo 用户反馈授权验证失效、水印无法移除、导出功能经常性失效、客服响应极慢或完全缺失。产品已停止在 AppSumo 销售，迁移至 LemonSqueezy，早期购买者权益受损。官网目前返回 402 Payment Required 错误。
+
+<strong>【判断】</strong> ⚠️ <strong>高风险状态</strong>——尽管两次 PH 发布均进前三，但付费用户集体投诉是严重警示信号。开发者被指控推出新产品后放弃旧产品，信任损伤难以修复。<strong>不建议作为工具选项</strong>，但可作为 PH 发布策略的案例学习（<a href="https://www.vibrantsnap.com/blog/product-hunt-launch-video-guide" target="_blank">官方发布指南</a>）。
+
+<hr>
+
+<h3>Fini – 企业级"零幻觉"AI 客服代理（133 votes）</h3>
+<a href="https://www.producthunt.com/products/fini-2/launches/fini-2" target="_blank">ProductHunt 页面</a>
+
+<strong>是什么：</strong> 面向金融科技、医疗、保险等受监管行业的自主 AI 客服代理。不只是回答问题，还能执行退款、KYC 审核、账户变更等实际操作。
+
+<strong>核心技术：</strong> "RAGless"专有架构——只允许从经过审核的知识库内容中组织回答，如果答案不在知识库中，AI 不会猜测而是主动上报。号称 99% 准确率、零幻觉。
+
+<strong>差异化功能：</strong>
+- Knowledge Atlas：自学习知识图谱，自动检测知识缺口
+- Agentic Workflows：直接连接后端系统（Stripe、CRM 等）执行实际操作
+- 企业级合规：SOC 2 Type II、ISO 27001/42001、HIPAA、GDPR、PCI-DSS Level 1
+
+<strong>定价：</strong> $0.69/次解决，月最低 $1,799。Zero-Pay Guarantee：90 天内达到 90% 解决率，否则全额退款。
+
+<strong>官方案例：</strong> Atlas（金融科技）从 15% 自动化提升至 70%；Qogita（B2B 电商）88% 工单端到端解决。
+
+<strong>【判断】</strong> Fini 押注的是"准确性优先"策略在企业级市场的价值。用"零幻觉"换取了生成灵活性，这对于金融、医疗等无法容忍错误答案的行业是刚需。但 ⚠️ <strong>验证缺口</strong>明显——公司成立于 2024 年，公开案例有限，大多数"好评"来自官网自述，缺乏 G2、Capterra 等平台的独立用户评分。建议观察 6-12 个月后追踪其公开评价数量变化。
+
+<hr>
+
+<h2>📊 GitHub Trending</h2>
+
+| 仓库 | 语言 | Stars | 今日增长 | 描述 |
+|------|------|-------|----------|------|
+| <a href="https://github.com/Panniantong/Agent-Reach" target="_blank">Panniantong/Agent-Reach</a> | Python | 29.5k | +1,045 | 给 AI Agent 装上"眼睛"，一站式浏览 Twitter/Reddit/YouTube/GitHub/小红书，零 API 费用 |
+| <a href="https://github.com/NVIDIA/SkillSpector" target="_blank">NVIDIA/SkillSpector</a> | Python | 6.0k | +1,079 | AI Agent Skill 安全扫描器，检测漏洞、恶意模式和安全风险 |
+| <a href="https://github.com/shiyu-coder/Kronos" target="_blank">shiyu-coder/Kronos</a> | Python | 30.1k | +395 | 金融市场语言基础模型 |
+| <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank">rohitg00/ai-engineering-from-scratch</a> | Python | 32.8k | +538 | 从零开始学习 AI 工程：学、建、发布 |
+| <a href="https://github.com/freeCodeCamp/freeCodeCamp" target="_blank">freeCodeCamp/freeCodeCamp</a> | TypeScript | 447.6k | +738 | 免费学习编程的全球最大的开源课程平台 |
+| <a href="https://github.com/meshery/meshery" target="_blank">meshery/meshery</a> | TypeScript | 10.5k | +227 | 云原生管理器 |
+| <a href="https://github.com/chatwoot/chatwoot" target="_blank">chatwoot/chatwoot</a> | Ruby | 31.5k | +431 | 开源实时聊天、邮件支持、全渠道客服台（Intercom/Zendesk 替代品） |
+| <a href="https://github.com/trycua/cua" target="_blank">trycua/cua</a> | HTML | 18.0k | +57 | 计算机使用 Agent 的开源基础设施 |
+| <a href="https://github.com/krahets/hello-algo" target="_blank">krahets/hello-algo</a> | Java | 126.8k | +34 | 《Hello 算法》：动画图解、一键运行的数据结构与算法教程 |
+| <a href="https://github.com/jwasham/coding-interview-university" target="_blank">jwasham/coding-interview-university</a> | - | 352.1k | +516 | 完整的计算机科学学习计划，助你成为软件工程师 |
+
+<strong>信号解读：</strong>
+1. <strong>Agent-Reach</strong> 今日暴涨 1,045 stars，反映开发者对"让 AI 自主浏览互联网"的强烈需求
+2. <strong>NVIDIA SkillSpector</strong> 高热度，AI Agent Skill 安全成为新焦点
+3. <strong>Kronos</strong> 金融 AI 基础模型受关注，量化交易/金融 NLP 赛道持续升温
+4. <strong>传统长红项目</strong>（freeCodeCamp、hello-algo、coding-interview-university）持续上榜，说明基础学习和面试准备仍是刚需
+
+<hr>
+
+<h2>🎯 赛道雷达</h2>
+
+<h3>AI Agent 浏览能力（Agent-Reach 类）</h3>
+<strong>热度：</strong> 🔥🔥🔥  
+<strong>趋势：</strong> 从"Agent 能调用 API"进化到"Agent 能自主浏览任意网站"
+
+<strong>关键洞察：</strong>
+- Agent-Reach 的 slogan 很精准："Give your AI agent eyes to see the entire internet"
+- 零 API 费用是核心卖点——传统方式需要为每个平台买 API，Agent-Reach 用浏览器自动化绕过
+- 但法律和 ToS 风险：Twitter/Reddit 等平台明确禁止爬虫，规模化使用存在封号风险
+
+<hr>
+
+<h3>AI Coding Agent 市场格局</h3>
+<strong>热度：</strong> 🔥🔥🔥🔥🔥  
+<strong>关键变化：</strong> Token Tax 正在杀死 SaaS 毛利率，自研模型成为生存必需
+
+<strong>信号来源：</strong> <a href="https://www.techtimes.com/articles/317542/20260601/ai-agent-economics-token-tax-locks-gross-margins-30-points-below-saas-baseline.htm" target="_blank">TechTimes 2026-06-01</a>
+
+<strong>核心发现：</strong>
+- AI Agent 的 inference cost 让毛利率比传统 SaaS 低 30 个百分点
+- Cursor 曾长期负毛利，直到推出自研 Composer 模型才转正
+- 这解释了为什么新玩家还在入场：自研模型是生存必需，不是优化选项
+
+<strong>市场分裂为三个场景：</strong>
+1. <strong>日常编码</strong> → Cursor（AI-native IDE）
+2. <strong>深度重构</strong> → Claude Code（terminal-based agent）
+3. <strong>全自动 app 构建</strong> → 各玩家仍在竞争
+
+<hr>
+
+<h3>AI 客服/企业级 Agent</h3>
+<strong>热度：</strong> 🔥🔥🔥  
+<strong>代表：</strong> Fini、Intercom Fin、Zendesk AI、Decagon、Sierra
+
+<strong>差异化维度：</strong>
+| 产品 | 定价 | 核心差异 |
+|------|------|----------|
+| Fini | $0.69/解决，$1,799/月起 | RAGless零幻觉、可执行后端操作 |
+| Intercom Fin | $0.99/解决 | 平台无关、67%平均解决率 |
+| Zendesk AI | $1.50-2.00/解决 | 原生集成Zendesk生态 |
+| Decagon | $30K-$250K/年 | 最高80-90%解决率、大容量企业级 |
+
+<strong>关键洞察：</strong> "准确性优先" vs "灵活性优先" 的分化。Fini 的 RAGless 策略牺牲生成灵活性换取零幻觉，适合金融/医疗等监管行业。
+
+<hr>
+
+<h2>📚 不容错过</h2>
+
+<h3>How to earn a billion dollars</h3>
+<strong>659p 1698c</strong> — Paul Graham 的最新文章，讨论如何赚取十亿美元。<a href="https://paulgraham.com" target="_blank">原文</a> <a href="https://news.ycombinator.com/item?id=43731204" target="_blank">HN讨论</a>
+
+<h3>Formal methods and the future of programming</h3>
+<strong>302p 97c</strong> — Jane Street 关于形式化方法和编程未来的深度思考。<a href="https://janestreet.com" target="_blank">原文</a> <a href="https://news.ycombinator.com/item?id=43728456" target="_blank">HN讨论</a>
+
+<h3>The only scalable delete in Postgres is DROP TABLE</h3>
+<strong>185p 69c</strong> — PlanetScale 的 Postgres 删除操作深度解析。<a href="https://planetscale.com" target="_blank">原文</a> <a href="https://news.ycombinator.com/item?id=43726935" target="_blank">HN讨论</a>
+
+<h3>I indexed 669 GB of my GoPro videos using my M1 Max computer and local ML models</h3>
+<strong>382p 101c</strong> — 用本地 ML 模型索引 669GB GoPro 视频的个人项目。<a href="https://iliashad.com" target="_blank">原文</a> <a href="https://news.ycombinator.com/item?id=43729042" target="_blank">HN讨论</a>
+
+<h3>Not everyone is using AI for everything</h3>
+<strong>476p 510c</strong> — DuckDuckGo 创始人关于 AI 使用现实的思考。<a href="https://gabrielweinberg.com" target="_blank">原文</a> <a href="https://news.ycombinator.com/item?id=43729562" target="_blank">HN讨论</a>
+
+<h3>Free SQL→ER diagram tool, runs in the browser</h3>
+<strong>353p 73c</strong> — 浏览器端运行的免费 SQL 转 ER 图工具，无需上传数据。<a href="https://sqltoerdiagram.com" target="_blank">原文</a> <a href="https://news.ycombinator.com/item?id=43728791" target="_blank">HN讨论</a>
+
+<h3>ReactOS achieves 3D-accelerated Half-Life on real hardware</h3>
+<strong>282p 78c</strong> — 开源 Windows 兼容系统 ReactOS 在真机上实现 3D 加速运行 Half-Life。<a href="https://phoronix.com" target="_blank">原文</a> <a href="https://news.ycombinator.com/item?id=43727682" target="_blank">HN讨论</a>
+
+<hr>
+
+<h2>🔍 Active Questions 雷达</h2>
+
+<h3>AQ1: Coding Agent 市场格局——为什么 Claude Code / Codex / Cursor 都很强的情况下，还有这么多人在做 Coding Agent？</h3>
+
+<strong>关键发现：</strong>
+- <a href="https://lushbinary.com/blog/ai-coding-agents-comparison-cursor-windsurf-claude-copilot-kiro-2026/" target="_blank">Lushbinary AI Coding Agents 2026 对比</a>：7 个 serious contenders，关键转变是朝 "agent" 类别和 "parallel orchestration" 演进
+- <a href="https://www.truefoundry.com/blog/cursor-vs-claude-code" target="_blank">TrueFoundry: Cursor vs Claude Code</a>：Cursor 是 AI-native IDE（日常开发），Claude Code 是 terminal-based agent（深度重构），生产团队通常两者都用
+- <a href="https://daviddaniel.tech/research/papers/agentic-pricing-break/" target="_blank">David Daniel Research: Agentic Pricing Break</a>：定价模式正在从 seat-based 转向 usage-based，Uber 4 个月烧完 2026 年 AI coding tools 预算
+
+<strong>核心洞察：</strong> 新入场的动机 = 摆脱第三方 API token tax（自研模型）、差异化架构（IDE vs Terminal vs Cloud Agent）、token 效率优势。市场没有收敛，反而在分裂。
+
+<hr>
+
+<h3>AQ2: AI 产品的 activation 怎么做？头部公司的具体实践是什么？</h3>
+
+<strong>关键发现：</strong>
+- <a href="https://gtmdownload.substack.com/p/how-did-claude-grow-so-fast" target="_blank">GTM Download: How did Claude grow so fast</a>：Anthropic 的聪明举措——让新用户一键导入 ChatGPT memory，消除切换障碍。注册流程比大多数增长团队愿意做的更长，询问你是谁、在做什么、关心什么
+- <a href="https://udit.co/blog/raw/ai-product-metrics" target="_blank">Udit: AI Product Metrics That Matter</a>：AI 产品的 activation 必须重新定义——不是"第一次使用 AI 功能"，而是"用户完成一个任务，使用 AI 输出，且不需要重新生成超过两次"
+- <a href="https://www.fishmanafnewsletter.com/p/how-ai-products-drive-adoption-in-onboarding-through-template-activation-loop" target="_blank">Fishman AF: Template Activation Loop</a>：所有成功的 AI 公司都收敛到同一策略——用模板/示例 prompt 解决 blank canvas 问题
+
+<strong>核心洞察：</strong> Activation = 用户第一次"成功使用 AI 输出"而非"第一次使用 AI"。延长注册流程、问更多问题，反而可能提升 retention。
+
+<hr>
+
+<h3>AQ3: Margin 类产品如何找到第一批种子用户？头部公司的具体实践是什么？</h3>
+
+<strong>关键发现：</strong>
+- <a href="https://read.first1000.co/p/roam-research" target="_blank">First 1000: Roam Research</a>：前 1000 用户来自与 AI 安全研究机构的企业许可协议，寻找"问题如此复杂以至于愿意学习和采用新工具"的研究人员
+- <a href="https://www.ideaplan.io/blog/how-linear-grew-to-1-billion-with-35k-marketing-spend" target="_blank">Ideaplan: Linear $1.25B 估值，$35K 营销支出</a>：等了 3 年才雇第一个营销人员。先用创始人的行业网络获取前 1000 用户，然后通过"极其优秀的产品 + 每周公开发布更新 + Twitter 发声 + Slack 社区"
+- <a href="https://www.startupriders.com/p/granola-growth-playbook" target="_blank">Startup Riders: Granola 增长手册</a>：选择 VC 作为 beachhead 用户群体——会议多、笔记风格相对公式化、伦敦容易约到 coffee chat。VC 在 Twitter 上发声、每天见创始人、晚餐时见其他投资人——自然形成 referral loop
+
+<strong>核心洞察：</strong> 共同模式：elite/power user first → 建立社区 → 口碑传播。Roam 找 AI 安全研究者，Granola 找 VC，Linear 靠创始人网络。手动 onboarding 前 100-150 用户是常态，不是例外。
+
+<hr>
+
+<h3>AQ4: 模型性能变化到底在发生什么？从 Opus 4.6 到 4.7 的变化包含哪些维度？</h3>
+
+<strong>关键发现：</strong>
+- <a href="https://allthings.how/claude-opus-4-7-system-card-key-findings-and-benchmarks/" target="_blank">All Things How: Claude Opus 4.7 System Card</a>：Opus 4.7 在 SWE-bench Verified（80.8%→87.6%）、视觉推理（XBOW 54.5%→98.5%）上显著提升，但<strong>长上下文多针检索显著退化</strong>：8-needle @ 256k 从 91.9% 降到 59.2%
+- <a href="https://ssntpl.com/claude-opus-4-5-vs-4-6-vs-4-7-benchmarks-comparison/" target="_blank">SSNTPL: Opus 4.5 vs 4.6 vs 4.7 对比</a>：MCP Atlas（多工具协调）从 4.6 的 59.5%（倒退）提升到 4.7 的 77.3%
+- <a href="https://www.anthropic.com/claude/opus" target="_blank">Anthropic: Opus 4.8</a>：Cognition 的 Devin 团队反馈——Opus 4.8 在 autonomous engineering workloads 上比 4.7 更一致
+
+<strong>核心洞察：</strong> 模型能力在"分化"而非"全面提升"：4.7 在 coding/agentic 任务上大幅提升，但在长上下文检索上显著退化。这是 intentional trade-off——更好的 instruction following 和更少幻觉，代价是"找不到信息时会承认而不是编造"。
+
+<hr>
+
+<h2>💡 共识 / 非共识</h2>
+
+<strong>共识：</strong>
+- AI Coding Agent 市场正在分裂，没有一家通吃
+- 企业级 AI 客服需要"准确性优先"而非"灵活性优先"
+- 模型能力在分化，没有全面提升
+
+<strong>非共识 / 值得跟踪：</strong>
+- Token Tax 会让 AI SaaS 毛利率永远低于传统 SaaS 吗？还是自研模型能彻底解决这个问题？
+- "精英用户优先"策略是否适用于所有 AI 产品，还是只适用于生产力工具？
+- 长上下文检索的退化是暂时的 trade-off，还是长期的技术瓶颈？
+
+<hr>
+
+<h2>📝 一句话总结</h2>
+
+<p>> 今日最大的信号：AI 工具市场正在从"功能竞争"转向"成本效率竞争"——Cursor 通过自研模型摆脱负毛利，Agent-Reach 用零 API 费用策略切入浏览场景，Coding Agent 市场因 token tax 而分裂为 IDE/Terminal/Cloud 三条赛道。产品功能差异越来越小，成本结构和商业模式成为决胜关键。</p>
+
+<hr>
+
+<em>报告基于 Hacker News、ProductHunt、GitHub Trending 数据生成</em>  
+<em>AQ 雷达基于 Notion 批注推断</em>
+</body>
+</html>
